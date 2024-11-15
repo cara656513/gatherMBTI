@@ -1,8 +1,8 @@
+import Router from "./shared/Router";
 import supabase from "./supabase";
 
-console.log(supabase);
 function App() {
-  return <>App</>;
+  return <Router />;
 }
 
 export default App;
