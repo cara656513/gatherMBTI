@@ -1,5 +1,5 @@
 const SignUp = () => {
-  return <div>싸인어ㅃSignUp</div>;
+  return <div>adfksflajslSignUp</div>;
 };
 
 export default SignUp;
