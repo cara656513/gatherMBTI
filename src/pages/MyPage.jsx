@@ -1,5 +1,5 @@
 const MyPage = () => {
-  return <div>마이페이지~~MyPage</div>;
+  return <div>마이페이지~~aksdjflaksdjflMyPage</div>;
 };
 
 export default MyPage;
