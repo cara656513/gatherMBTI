@@ -1,5 +1,161 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import bear from "../img/bear.png";
+
+const Container = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const SignUp = () => {
-  return <div>adfksflajslSignUp</div>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passWordConfirm, setPasswordConfirm] = useState("");
+  const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [mbti, setMbti] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handlePasswordConfirmChange = (e) => {
+    setPasswordConfirm(e.target.value);
+  };
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleNickNameChange = (e) => {
+    setNickName(e.target.value);
+  };
+  const handleMbtiChange = (e) => {
+    setMbti(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password.length < 8) {
+      alert("비밀번호 8자 이상 입력해 주세요.");
+      return;
+    }
+
+    if (password !== passWordConfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+
+    setEmail("");
+    setPassword("");
+    setPasswordConfirm("");
+    setName("");
+    setNickName("");
+    setMbti("");
+  }
+
+  return (
+    <Container onSubmit={handleSubmit}>
+      <h3>모여라 MBTI</h3>
+      <p>로그인</p>
+      <div>
+        <p>회원가입</p>
+      </div>
+      <div>
+        <img src={bear} alt="망그러진곰" />
+        <p>환영합니다!</p>
+      </div>
+      <div>
+        <label>
+          이메일
+          <input
+            type="email"
+            value={email}
+            placeholder={"이메일을 입력하세요"}
+            onChange={handleEmailChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          비밀번호
+          <input
+            type="password"
+            value={password}
+            placeholder={"비밀번호를 입력하세요"}
+            onChange={handlePasswordChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          비밀번호 확인
+          <input
+            type="password"
+            value={passWordConfirm}
+            placeholder={"비밀번호를 재입력하세요"}
+            onChange={handlePasswordConfirmChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          이름
+          <input
+            type="text"
+            value={name}
+            placeholder={"이름을 입력하세요"}
+            onChange={handleNameChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          닉네임
+          <input
+            type="text"
+            value={nickName}
+            placeholder={"닉네임을 입력하세요"}
+            onChange={handleNickNameChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          MBTI
+          <select value={mbti} onChange={handleMbtiChange} required>
+            <option value="">MBTI를 선택하세요</option>
+            <option value="ISTJ">ISTJ</option>
+            <option value="ISFJ">ISFJ</option>
+            <option value="INFJ">INFJ</option>
+            <option value="INTJ">INTJ</option>
+            <option value="ISTP">ISTP</option>
+            <option value="ISFP">ISFP</option>
+            <option value="INFP">INFP</option>
+            <option value="INTP">INTP</option>
+            <option value="ESTP">ESTP</option>
+            <option value="ESFP">ESFP</option>
+            <option value="ENFP">ENFP</option>
+            <option value="ENTP">ENTP</option>
+            <option value="ESTJ">ESTJ</option>
+            <option value="ESFJ">ESFJ</option>
+            <option value="ENFJ">ENFJ</option>
+            <option value="ENTJ">ENTJ</option>
+          </select>
+        </label>
+      </div>
+      <button type="submit">가입하기</button>
+    </Container>
+  );
 };
 
 export default SignUp;
