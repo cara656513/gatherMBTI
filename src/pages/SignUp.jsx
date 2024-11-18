@@ -1,50 +1,24 @@
 import React, { useState } from "react";
 import supabase from "../supabase";
-import styled from "styled-components";
-import { useEffect } from "react";
-
-const Container = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const HeaderStyle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-`
-
-const ImgButton = styled.button`
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  background-color: orange; /* 배경색 설정 */
-  border: 2px dashed black;
-  cursor: pointer;
-  font-size: 30px;
-`
-
-const SignUpInput = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const BasicInfor = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const AccountInfor = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Inputstyle = styled.label`
-  display: flex;
-  flex-direction: column;
-`
+import {
+  AccountInfor,
+  BasicInfor,
+  Container,
+  HeaderStyle,
+  ImgLabel,
+  InputStyle,
+  LabelStyle,
+  SignUpButton,
+  SignUpInput,
+  SelectStyle,
+  LoginSignUp,
+  LoginButton,
+  SignUpImg,
+  StarText,
+  Introduction,
+  PlusImgInput,
+  PlusImgStyle,
+} from "../styles/SignUpStyles";
 
 const SignUp = () => {
   const [users, setUsers] = useState([]);
@@ -54,17 +28,8 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
   const [mbti, setMbti] = useState("");
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const { data, error } = await supabase.from("users").select("*");
-      if (error) {
-        return alert(error.message);
-      }
-      setUsers(data);
-    }
-    fetchUsers();
-  },[])
+  const [profileImg, setProfileImg] = useState(null);
+  const [profileText, setProfileText] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -85,8 +50,47 @@ const SignUp = () => {
     setMbti(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleProfileImgChange = (e) => {
+    setProfileImg(e.target.files[0]);
+  };
+
+  const handleProfileTextChange = (e) => {
+    setProfileText(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { data: userData, error: userError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (userError) {
+      alert(userError.message);
+      return;
+    }
+    setUsers(userData.user);
+
+    const { data, error } = await supabase
+      .from("users")
+      .insert([
+        {
+          name,
+          nickname: nickName,
+          profile_img: profileImg,
+          profile_text: profileText,
+          mbti,
+        },
+      ])
+      .select();
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    setUsers([...users, ...data]);
+
+    const { data: storageData } = supabase.storage
+      .from("avatars")
+      .getPublicUrl("default-profile.jpg");
 
     if (password.length < 8) {
       alert("비밀번호 8자 이상 입력해 주세요.");
@@ -98,7 +102,7 @@ const SignUp = () => {
       return;
     }
 
-    alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+    alert("회원가입이 완료되었습니다.");
 
     setEmail("");
     setPassword("");
@@ -106,100 +110,135 @@ const SignUp = () => {
     setName("");
     setNickName("");
     setMbti("");
-  }
+    setProfileImg(null);
+    setProfileText("");
+  };
 
   return (
     <Container onSubmit={handleSubmit}>
       <HeaderStyle>
         <h3>모여라 MBTI</h3>
-        <div>
-        <p>로그인</p>
-        <p>회원가입</p>
-        </div>
+        <LoginSignUp>
+          <LoginButton type="button">로그인</LoginButton>
+          <SignUpButton type="button">회원가입</SignUpButton>
+        </LoginSignUp>
       </HeaderStyle>
-      <div>
+      <SignUpImg>
         <p>회원가입</p>
-        <ImgButton>+</ImgButton>
-      </div>
+        <ImgLabel htmlFor="fileInput">
+          {profileImg ? (
+            <PlusImgStyle id="fileInput" src={profileImg} alt="ProfileImg" />
+          ) : (
+            "+"
+          )}
+          <PlusImgInput
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            onChange={handleProfileImgChange}
+          />
+        </ImgLabel>
+      </SignUpImg>
       <SignUpInput>
-      <BasicInfor>
-        <Inputstyle>
-          이름
-          <input
-            type="text"
-            value={name}
-            placeholder={"이름을 입력하세요"}
-            onChange={handleNameChange}
-            required
-          />
-        </Inputstyle>
-        <Inputstyle>
-          닉네임
-          <input
-            type="text"
-            value={nickName}
-            placeholder={"닉네임을 입력하세요"}
-            onChange={handleNickNameChange}
-            required
-          />
-        </Inputstyle>
-        <Inputstyle>
-          MBTI
-          <select value={mbti} onChange={handleMbtiChange} required>
-            <option value="">MBTI를 선택하세요</option>
-            <option value="ISTJ">ISTJ</option>
-            <option value="ISFJ">ISFJ</option>
-            <option value="INFJ">INFJ</option>
-            <option value="INTJ">INTJ</option>
-            <option value="ISTP">ISTP</option>
-            <option value="ISFP">ISFP</option>
-            <option value="INFP">INFP</option>
-            <option value="INTP">INTP</option>
-            <option value="ESTP">ESTP</option>
-            <option value="ESFP">ESFP</option>
-            <option value="ENFP">ENFP</option>
-            <option value="ENTP">ENTP</option>
-            <option value="ESTJ">ESTJ</option>
-            <option value="ESFJ">ESFJ</option>
-            <option value="ENFJ">ENFJ</option>
-            <option value="ENTJ">ENTJ</option>
-          </select>
-        </Inputstyle>
+        <BasicInfor>
+          <LabelStyle>
+            <p>
+              이름<StarText>*</StarText>
+            </p>
+            <InputStyle
+              type="text"
+              value={name}
+              placeholder={"신짱구"}
+              onChange={handleNameChange}
+              required
+            />
+          </LabelStyle>
+          <LabelStyle>
+            <p>
+              닉네임<StarText>*</StarText>
+            </p>
+            <InputStyle
+              type="text"
+              value={nickName}
+              placeholder={"burger_lover"}
+              onChange={handleNickNameChange}
+              required
+            />
+          </LabelStyle>
+          <LabelStyle>
+            <p>
+              MBTI<StarText>*</StarText>
+            </p>
+            <SelectStyle value={mbti} onChange={handleMbtiChange} required>
+              <option value="">MBTI 선택</option>
+              <option value="ISTJ">ISTJ</option>
+              <option value="ISFJ">ISFJ</option>
+              <option value="INFJ">INFJ</option>
+              <option value="INTJ">INTJ</option>
+              <option value="ISTP">ISTP</option>
+              <option value="ISFP">ISFP</option>
+              <option value="INFP">INFP</option>
+              <option value="INTP">INTP</option>
+              <option value="ESTP">ESTP</option>
+              <option value="ESFP">ESFP</option>
+              <option value="ENFP">ENFP</option>
+              <option value="ENTP">ENTP</option>
+              <option value="ESTJ">ESTJ</option>
+              <option value="ESFJ">ESFJ</option>
+              <option value="ENFJ">ENFJ</option>
+              <option value="ENTJ">ENTJ</option>
+            </SelectStyle>
+          </LabelStyle>
         </BasicInfor>
-      <AccountInfor>
-        <Inputstyle>
-          이메일
-          <input
-            type="email"
-            value={email}
-            placeholder={"이메일을 입력하세요"}
-            onChange={handleEmailChange}
-            required
-          />
-        </Inputstyle>
-        <Inputstyle>
-          비밀번호
-          <input
-            type="password"
-            value={password}
-            placeholder={"비밀번호를 입력하세요"}
-            onChange={handlePasswordChange}
-            required
-          />
-        </Inputstyle>
-        <Inputstyle>
-          비밀번호 확인
-          <input
-            type="password"
-            value={passWordConfirm}
-            placeholder={"비밀번호를 재입력하세요"}
-            onChange={handlePasswordConfirmChange}
-            required
-          />
-        </Inputstyle>
-      </AccountInfor>
+        <AccountInfor>
+          <LabelStyle>
+            <p>
+              이메일<StarText>*</StarText>
+            </p>
+            <InputStyle
+              type="email"
+              value={email}
+              placeholder={"example@example.com"}
+              onChange={handleEmailChange}
+              required
+            />
+          </LabelStyle>
+          <LabelStyle>
+            <p>
+              패스워드<StarText>*</StarText>
+            </p>
+            <InputStyle
+              type="password"
+              value={password}
+              placeholder={"passward"}
+              onChange={handlePasswordChange}
+              required
+            />
+          </LabelStyle>
+          <LabelStyle>
+            <p>
+              패스워드 확인<StarText>*</StarText>
+            </p>
+            <InputStyle
+              type="password"
+              value={passWordConfirm}
+              placeholder={"passward"}
+              onChange={handlePasswordConfirmChange}
+              required
+            />
+          </LabelStyle>
+        </AccountInfor>
       </SignUpInput>
-      <button type="submit">가입하기</button>
+      <label>
+        소개글
+        <Introduction
+          type="text"
+          value={profileText}
+          placeholder={"자신을 표현해주세요."}
+          onChange={handleProfileTextChange}
+        />
+      </label>
+      <SignUpButton>가입하기</SignUpButton>
     </Container>
   );
 };
