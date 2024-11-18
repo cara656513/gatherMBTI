@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import supabase from '../supabase'
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 const LoginComponent = () => {
      const [user , setuser] = useState(null); 
      const [email , setemail] = useState(""); 
@@ -34,10 +35,18 @@ const LoginComponent = () => {
     
   
     }   
+     const Logincontainer = styled.div`
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  return (
+     `
+  return (<>
+   <LoginComponent>
     
-    <form action="" onSubmit = {signInUser} > 
+   <form action="" onSubmit = {signInUser} > 
     <span>이메일</span>
     <input type="text" placeholder='이메일을 입력하세요'  value={email} onChange={onChangeEmail} />
     <span>비밀번호</span>
@@ -45,6 +54,9 @@ const LoginComponent = () => {
     <button type='subimt' >로그인</button>
     { <p style={{ color: "red" }}>{errorMessage}</p>}
     </form>
+   </LoginComponent>
+   </>
+   
   )
 }
 
