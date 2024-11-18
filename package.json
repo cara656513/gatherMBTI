@@ -15,7 +15,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
+<<<<<<< HEAD
     "styled-components": "^6.1.13"
+=======
+    "styled-components": "^6.1.13",
+    "styled-reset": "^4.5.2"
+>>>>>>> 1be85eeff2962862a52be3cf6a9e5be229ffbf65
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
