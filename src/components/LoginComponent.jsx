@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import supabase from '../supabase'
-import { useNavigate } from '/react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 const LoginComponent = () => {
      const [user , setuser] = useState(null); 
