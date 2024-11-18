@@ -9,8 +9,4 @@ createRoot(document.getElementById("root")).render(
     <GlobalStyle />
     <App />
   </StrictMode>
-<<<<<<< HEAD
-)
-=======
-);
->>>>>>> 61ed2436abc85d89208bbdc32658415b902a330a
+  );

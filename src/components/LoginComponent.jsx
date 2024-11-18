@@ -2,18 +2,61 @@ import React, { useEffect, useState } from 'react'
 import supabase from '../supabase'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+const Container = styled.div`
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    `
+     const Logincontainer = styled.div`
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+     `
+     const LoginTitle = styled.h1`
+      font-size:  40px;
+      margin-bottom: 50px;
+     `
+     const InputonBox = styled.div`
+      display: flex;
+      margin-bottom: 30px;
+      margin-top: 20px;
+      gap: 10px;
+     `
+     const BouutonBox = styled.div`
+      display: flex ;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      height: 60px;
+
+     `
+     const LargeButton = styled.button`
+      width: 150px;
+    height: 55px;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: orange;
+    border: none;
+     ` 
 const LoginComponent = () => {
-     const [user , setuser] = useState(null); 
-     const [email , setemail] = useState(""); 
-     const [password , setpassword ] = useState(""); 
+   
+     const [email , setEmail] = useState(""); 
+     const [password , setPassword ] = useState(""); 
      const navigate = useNavigate();
      const [errorMessage, setErrorMessage] = useState("");
      const onChangeEmail = (e) => {
-      setemail(e.target.value);
+      setEmail(e.target.value);
     };      
   
     const onChangePassword = (e) => {
-      setpassword(e.target.value);
+      setPassword(e.target.value);
     };
   
     const signInUser = async (e)=> {
@@ -35,27 +78,38 @@ const LoginComponent = () => {
     
   
     }   
-     const Logincontainer = styled.div`
-      width: 500px;
-      height: 500px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-     `
-  return (<>
-   <LoginComponent>
     
-   <form action="" onSubmit = {signInUser} > 
-    <span>이메일</span>
-    <input type="text" placeholder='이메일을 입력하세요'  value={email} onChange={onChangeEmail} />
-    <span>비밀번호</span>
-    <input type="password" placeholder='비밀번호를 입력하세요' value={password} onChange={onChangePassword}/>
-    <button type='subimt' >로그인</button>
-    { <p style={{ color: "red" }}>{errorMessage}</p>}
-    </form>
-   </LoginComponent>
-   </>
+  return (
+   <>
+   <Container>
+   <Logincontainer>
+   <LoginTitle>로그인</LoginTitle>
+    <form action="" onSubmit = {signInUser} > 
+    <span >이메일</span>    
+    
+     <InputonBox>
+         <input type="text" placeholder='이메일을 입력하세요'  value={email} onChange={onChangeEmail} />
+     </InputonBox>
+     <span>비밀번호</span>
+    
+    
+     <InputonBox>
+     <input type="password" placeholder='비밀번호를 입력하세요' value={password} onChange={onChangePassword}/>
+     </InputonBox>
+     
+  
+      <LargeButton type='submit'>로그인</LargeButton>
+
+ 
+     
+  
+     </form>
+    </Logincontainer>
+   </Container>
+ 
+    </>
+   
+ 
    
   )
 }
