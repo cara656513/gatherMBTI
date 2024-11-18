@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "KBO_Dia_Gothic_light";
+  src: url("./font/KBO_Dia_Gothic_light.ttf") format("truetype");
+}
+
+* {
+  font-family: "KBO_Dia_Gothic_light";
+}

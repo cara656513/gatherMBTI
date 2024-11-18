@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
 import {
-  HeaderWrapper,
-  MenuWrapper,
   Wrapper,
   ImgBox,
   ImgWrapper,
-  Title,
   ProfileImg,
   UserHiWrapper,
 } from "../styles/MyPageStyles";
-import { GlobalStyle } from "../styles/GlobalStyle";
 import supabase from "../supabase";
 import { useEffect, useState } from "react";
+import { Header } from "../components/Header";
+import Footer from "../components/Footer";
 
 const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
@@ -38,13 +36,6 @@ const PostFetchData = () => {
           </Link>
         );
       })}
-      <ImgBox />
-      <ImgBox />
-      <ImgBox />
-      <ImgBox />
-      <ImgBox />
-      <ImgBox />
-      <ImgBox />
     </ImgWrapper>
   );
 };
@@ -81,30 +72,20 @@ const UserFetchData = () => {
   );
 };
 
-const Header = () => {
-  return (
-    <HeaderWrapper>
-      <Link to="/">모여라 mbti </Link>
-      <MenuWrapper>
-        <Link>어쩌구</Link>
-        <Link>어쩌구</Link>
-        <Link to="/newpost">새글쓰기</Link>
-        <Link to="/mypage">마이페이지</Link>
-      </MenuWrapper>
-    </HeaderWrapper>
-  );
-};
-
 const MyPage = () => {
   return (
     <>
-      <GlobalStyle />
-      <Header />
+      <Header
+        menus={[
+          { route: "/newpost", menu: "글쓰기" },
+          { route: "/mypage", menu: "마이 페이지" },
+        ]}
+      />
       <Wrapper>
-        <Title>마이페이지</Title>
         <UserFetchData />
         <PostFetchData />
       </Wrapper>
+      <Footer />
     </>
   );
 };
