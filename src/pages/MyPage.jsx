@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+
   Wrapper,
   ImgBox,
   ImgWrapper,
@@ -10,6 +11,7 @@ import supabase from "../supabase";
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
+
 
 const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
@@ -36,6 +38,7 @@ const PostFetchData = () => {
           </Link>
         );
       })}
+
     </ImgWrapper>
   );
 };
@@ -58,6 +61,7 @@ const UserFetchData = () => {
 
   return (
     <>
+
       {datas
         .filter((data) => data.id == "bfc6916c-70ca-4def-890a-e99ecbc57ee3")
         .map((data) => {
@@ -86,6 +90,7 @@ const MyPage = () => {
         <PostFetchData />
       </Wrapper>
       <Footer />
+
     </>
   );
 };
