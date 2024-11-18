@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import supabase from "../supabase";
 import styled from "styled-components";
-import bear from "../img/bear.png";
+import { useEffect } from "react";
 
 const Container = styled.form`
   display: flex;
@@ -8,13 +9,62 @@ const Container = styled.form`
   align-items: center;
 `;
 
+const HeaderStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+`
+
+const ImgButton = styled.button`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: orange; /* 배경색 설정 */
+  border: 2px dashed black;
+  cursor: pointer;
+  font-size: 30px;
+`
+
+const SignUpInput = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const BasicInfor = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const AccountInfor = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const Inputstyle = styled.label`
+  display: flex;
+  flex-direction: column;
+`
+
 const SignUp = () => {
+  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passWordConfirm, setPasswordConfirm] = useState("");
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
   const [mbti, setMbti] = useState("");
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const { data, error } = await supabase.from("users").select("*");
+      if (error) {
+        return alert(error.message);
+      }
+      setUsers(data);
+    }
+    fetchUsers();
+  },[])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -60,53 +110,20 @@ const SignUp = () => {
 
   return (
     <Container onSubmit={handleSubmit}>
-      <h3>모여라 MBTI</h3>
-      <p>로그인</p>
+      <HeaderStyle>
+        <h3>모여라 MBTI</h3>
+        <div>
+        <p>로그인</p>
+        <p>회원가입</p>
+        </div>
+      </HeaderStyle>
       <div>
         <p>회원가입</p>
+        <ImgButton>+</ImgButton>
       </div>
-      <div>
-        <img src={bear} alt="망그러진곰" />
-        <p>환영합니다!</p>
-      </div>
-      <div>
-        <label>
-          이메일
-          <input
-            type="email"
-            value={email}
-            placeholder={"이메일을 입력하세요"}
-            onChange={handleEmailChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          비밀번호
-          <input
-            type="password"
-            value={password}
-            placeholder={"비밀번호를 입력하세요"}
-            onChange={handlePasswordChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          비밀번호 확인
-          <input
-            type="password"
-            value={passWordConfirm}
-            placeholder={"비밀번호를 재입력하세요"}
-            onChange={handlePasswordConfirmChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
+      <SignUpInput>
+      <BasicInfor>
+        <Inputstyle>
           이름
           <input
             type="text"
@@ -115,10 +132,8 @@ const SignUp = () => {
             onChange={handleNameChange}
             required
           />
-        </label>
-      </div>
-      <div>
-        <label>
+        </Inputstyle>
+        <Inputstyle>
           닉네임
           <input
             type="text"
@@ -127,10 +142,8 @@ const SignUp = () => {
             onChange={handleNickNameChange}
             required
           />
-        </label>
-      </div>
-      <div>
-        <label>
+        </Inputstyle>
+        <Inputstyle>
           MBTI
           <select value={mbti} onChange={handleMbtiChange} required>
             <option value="">MBTI를 선택하세요</option>
@@ -151,8 +164,41 @@ const SignUp = () => {
             <option value="ENFJ">ENFJ</option>
             <option value="ENTJ">ENTJ</option>
           </select>
-        </label>
-      </div>
+        </Inputstyle>
+        </BasicInfor>
+      <AccountInfor>
+        <Inputstyle>
+          이메일
+          <input
+            type="email"
+            value={email}
+            placeholder={"이메일을 입력하세요"}
+            onChange={handleEmailChange}
+            required
+          />
+        </Inputstyle>
+        <Inputstyle>
+          비밀번호
+          <input
+            type="password"
+            value={password}
+            placeholder={"비밀번호를 입력하세요"}
+            onChange={handlePasswordChange}
+            required
+          />
+        </Inputstyle>
+        <Inputstyle>
+          비밀번호 확인
+          <input
+            type="password"
+            value={passWordConfirm}
+            placeholder={"비밀번호를 재입력하세요"}
+            onChange={handlePasswordConfirmChange}
+            required
+          />
+        </Inputstyle>
+      </AccountInfor>
+      </SignUpInput>
       <button type="submit">가입하기</button>
     </Container>
   );
