@@ -67,14 +67,16 @@ const UserFetchData = () => {
 
   return (
     <>
-      {datas.map((data) => {
-        return (
-          <UserHiWrapper key={data.id}>
-            <ProfileImg src={data.profile_img}></ProfileImg>
-            <div>안녕하세요, {data.name}님!</div>
-          </UserHiWrapper>
-        );
-      })}
+      {datas
+        .filter((data) => data.id == "bfc6916c-70ca-4def-890a-e99ecbc57ee3")
+        .map((data) => {
+          return (
+            <UserHiWrapper key={data.id}>
+              <ProfileImg src={data.profile_img}></ProfileImg>
+              <div>안녕하세요, {data.name}님!</div>
+            </UserHiWrapper>
+          );
+        })}
     </>
   );
 };
