@@ -1,3 +1,4 @@
+
 import { Wrapper } from "../styles/MyPageStyles";
 import { Header } from "../components/Header";
 import { useState } from "react";
@@ -50,6 +51,7 @@ const NewPost = () => {
         />
         <button onClick={handleSubmitPost}>올리기</button>
       </Wrapper>
+
     </div>
   );
 };
