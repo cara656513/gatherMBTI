@@ -167,8 +167,8 @@ const Main = () => {
         <>
           <Header
             menus={[
-              { route: "/login", menu: "로그인", type: "link" },
-              { route: "/signup", menu: "회원가입", type: "link" },
+              { route: "/login", menu: "로그인" },
+              { route: "/signup", menu: "회원가입" },
             ]}
           />
           <MainBox>

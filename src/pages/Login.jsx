@@ -24,7 +24,6 @@ const Login = () => {
           {
             route: "/signup",
             menu: "회원가입",
-            type: "link",
           },
         ]}
       />
