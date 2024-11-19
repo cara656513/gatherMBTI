@@ -1,56 +1,23 @@
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import supabase from "../supabase";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
 import { uploadFile } from "../api/storage";
+import {
+  Button,
+  Input,
+  InputForm,
+  InputWrapper,
+  Label,
+} from "../styles/PostInputStyles";
 
-const InputForm = styled.form`
-  display: grid;
-  place-items: center;
-`;
-const InputWrapper = styled.div`
-  padding: 100px 0 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Input = styled.input`
-  width: 400px;
-  height: 400px;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 20px;
-`;
-const Button = styled.button`
-  border: 1px solid black;
-  border-radius: 50px;
-  background-color: orange;
-  padding: 10px;
-  width: 100px;
-`;
-const Label = styled.label`
-  width: 400px;
-  height: 400px;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 20px;
-  background-color: #f2f2f2;
-  color: #bdbdbd;
-  font-size: 50px;
-  text-align: center;
-  display: grid;
-  place-items: center;
-`;
 const UpdatePost = () => {
-  const [userid, setUserid] = useState();
   const [input, setInput] = useState({ img: null, text: "" });
   const navigate = useNavigate();
   const { id } = useParams();
 
+  console.log(id);
   const handleInputChange = (e) => {
     const { id, value, files } = e.target;
     if (id === "img") {
@@ -94,21 +61,6 @@ const UpdatePost = () => {
       console.error("Error submitting post:", error.message);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      //로그인한 사람 데이터 찾기
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
-      if (userError) {
-        console.error("Error fetching user:", userError);
-        return;
-      }
-      setUserid(userData.user.id);
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div>

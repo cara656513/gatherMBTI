@@ -7,6 +7,7 @@ import { Postbox, PostboxImage, PostboxContent } from "/src/styles/MainStyles";
 export const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
   const [userid, setUserid] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +32,9 @@ export const PostFetchData = () => {
     fetchData();
   }, []);
 
-  const navigate = useNavigate();
   const handleUpdatePost = async (e) => {
     e.preventDefault();
     navigate(`/updatepost/${e.target.id}`);
-
-    // const { data, error } = await supabase
-    //   .from("posts")
-    //   .update({ other_column: "otherValue" })
-    //   .eq("some_column", "someValue")
-    //   .select();
   };
 
   const handleDeletePost = async (e) => {
@@ -49,6 +43,12 @@ export const PostFetchData = () => {
       .from("posts")
       .delete()
       .eq("id", e.target.id);
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
     alert("글이 삭제되었습니다!");
     navigate(`/`);
   };
@@ -63,14 +63,7 @@ export const PostFetchData = () => {
               <Link key={data.id} to="/detail">
                 <Postbox>
                   <PostboxImage src={data.picture} alt="Post image" />
-                  <PostboxContent
-                  // onClick={() => {
-                  //   Navigate(`/detail`);
-                  // }}
-                  >
-                    {data.content}
-                  </PostboxContent>
-
+                  <PostboxContent>{data.content}</PostboxContent>
                   <button id={data.id} onClick={handleUpdatePost}>
                     수정
                   </button>
