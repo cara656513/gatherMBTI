@@ -114,11 +114,11 @@ const LoginComponent = () => {
             <InputonBox>
               <Input type="password" placeholder='비밀번호를 입력하세요' value={password} onChange={onChangePassword} />
             </InputonBox>
-        
-        
+
+
             <ButtonBox>
-            <p>{errorMessage}</p>
-             <LargeButton type='submit'>로그인</LargeButton>
+              <p>{errorMessage}</p>
+              <LargeButton type='submit'>로그인</LargeButton>
             </ButtonBox>
 
           </form>
