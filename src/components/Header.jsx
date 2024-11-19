@@ -30,7 +30,7 @@ export const Header = ({ menus }) => {
           style={{
             width: "100px",
           }}
-          src="https://velog.velcdn.com/images/kang1129/post/70b67177-091d-4e2e-84a1-20ee8dee0457/image.svg"
+          src="src/images/logo.svg"
         />{" "}
       </Link>
       <MenuWrapper>

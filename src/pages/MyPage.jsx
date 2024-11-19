@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-
   Wrapper,
   ImgBox,
   ImgWrapper,
@@ -12,13 +11,15 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
 
-
 const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from("posts").select("*");
+      const { data, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("user_id", "bfc6916c-70ca-4def-890a-e99ecbc57ee3");
       if (error) {
         console.log(error);
       } else {
@@ -29,16 +30,31 @@ const PostFetchData = () => {
     fetchData();
   }, []);
 
+  const handleUpdatePost = async (e) => {
+    console.log(e.target.id);
+
+    const { data, error } = await supabase
+      .from("posts")
+      .update({ other_column: "otherValue" })
+      .eq("some_column", "someValue")
+      .select();
+  };
+
   return (
     <ImgWrapper>
       {datas.map((data) => {
         return (
-          <Link key={data.id} to="/detail">
-            <ImgBox src={data.picture} />
-          </Link>
+          <>
+            <Link key={data.id} to="/detail">
+              <ImgBox src={data.picture} />
+            </Link>
+            <button id={data.id} onClick={handleUpdatePost}>
+              수정
+            </button>
+            <button>삭제</button>
+          </>
         );
       })}
-
     </ImgWrapper>
   );
 };
@@ -61,7 +77,6 @@ const UserFetchData = () => {
 
   return (
     <>
-
       {datas
         .filter((data) => data.id == "bfc6916c-70ca-4def-890a-e99ecbc57ee3")
         .map((data) => {
@@ -90,7 +105,6 @@ const MyPage = () => {
         <PostFetchData />
       </Wrapper>
       <Footer />
-
     </>
   );
 };
