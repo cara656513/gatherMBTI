@@ -33,7 +33,9 @@ const Main = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+
       // 현재 로그인 된 사용자 데이터 가져오기
+
       const { data: userData, error: userError } =
         await supabase.auth.getUser();
       if (userError) {
@@ -43,7 +45,9 @@ const Main = () => {
       console.log("userData : ", userData);
       setCurrentUser(userData.user);
 
+
       // 전체 사용자 데이터 가져오기
+
       const { data: allUsers, error: usersError } = await supabase
         .from("users")
         .select("*");
@@ -53,6 +57,7 @@ const Main = () => {
       }
       console.log("allUsers : ", allUsers);
       setUsers(allUsers);
+
 
       // 현재 로그인된 사용자의 MBTI 정보 설정
       if (userData.user) {
@@ -83,6 +88,7 @@ const Main = () => {
     const user = users.find((user) => user.id === post.user_id);
     return user && user.mbti === userMbti;
   });
+
 
   return (
     <>
@@ -154,6 +160,7 @@ const Main = () => {
                       >
                         {user ? user.nickname : "Unknown User"}
                       </UserboxId>
+
                     </Userbox>
                   </Postbox>
                 );

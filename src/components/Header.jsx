@@ -76,6 +76,7 @@ export const Header = ({ currentUser }) => {
         },
       ];
 
+
   return (
     <HeaderWrapper>
       <Link to="/">
