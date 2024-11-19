@@ -21,44 +21,6 @@ export const LoginSignUp = styled.div`
   margin: 10px;
 `;
 
-export const SignUpImg = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  margin: -10px;
-`;
-
-export const ImgLabel = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  background-color: orange;
-  border: 2px dashed black;
-  cursor: pointer;
-  font-size: 50px;
-  overflow: hidden;
-
-  &:hover {
-    background-color: #ffb300;
-  }
-`;
-
-export const PlusImgStyle = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: '50%',
-  object-fit: 'cover',
-`;
-
-export const PlusImgInput = styled.input`
-  display: none;
-`;
-
 export const SignUpInput = styled.div`
   display: flex;
   flex-direction: row;
@@ -76,37 +38,6 @@ export const AccountInfor = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-`;
-
-export const LabelStyle = styled.label`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-`;
-
-export const InputStyle = styled.input`
-  border-radius: 8px;
-  width: 200px;
-  padding: 7px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: orange;
-    outline: none;
-  }
-`;
-
-export const SelectStyle = styled.select`
-  border-radius: 8px;
-  padding: 7px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: orange;
-    outline: none;
-  }
 `;
 
 export const Introduction = styled.input`
@@ -146,8 +77,4 @@ export const LoginButton = styled.button`
   &:hover {
     background-color: #ffb300;
   }
-`;
-
-export const StarText = styled.span`
-  color: red;
 `;
