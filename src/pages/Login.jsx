@@ -20,10 +20,7 @@ const HeaderWrapper = styled.div`
 const Login = () => {
   return (
     <>
-      <Header menus={[
-        { route: "/signup", menu: "회원가입" },
-      ]}
-      />
+      <Header menus={[{ route: "/signup", menu: "회원가입" }]} />
 
       <LoginComponent />
     </>
