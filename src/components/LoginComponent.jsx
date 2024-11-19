@@ -96,11 +96,7 @@ const LoginComponent = () => {
 
 
   }
-  const signUp = () => {
-    navigate("/signup")
-
-  }
-
+   
   return (
     <>
       <Container>

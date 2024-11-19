@@ -86,8 +86,23 @@ const Main = () => {
     return user && user.mbti === userMbti;
   });
 
+  const Logout = async() => {
+    const { data, error } = await supabase.auth.signOut();
+    console.log("signout: ", { data, error }); // data는 딱히 필요없을 듯
+    navigate  = ("/login")
+  }
+
   return (
     <>
+      <Header
+        menus={[
+          { route: "/newpost", menu: "글쓰기" },
+          { route: "/mypage", menu: "마이 페이지" },
+          { route: "/login", menu: "로그아웃" },
+        ]
+      }
+      Logout ={Logout}
+     />
       <MainBox>
         {currentUser ? (
           // 로그인 후 페이지
