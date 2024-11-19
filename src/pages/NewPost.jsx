@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../api/storage";
@@ -47,6 +47,8 @@ const Label = styled.label`
   place-items: center;
 `;
 const NewPost = () => {
+  const [userid, setUserid] = useState();
+
   const [input, setInput] = useState({ img: null, text: "" });
   const navigate = useNavigate();
 
@@ -71,7 +73,7 @@ const NewPost = () => {
       const url = await uploadFile(input);
 
       const { data, error } = await supabase.from("posts").insert({
-        user_id: "bfc6916c-70ca-4def-890a-e99ecbc57ee3",
+        user_id: userid,
         picture: url,
         content: input.text,
       });
@@ -87,6 +89,21 @@ const NewPost = () => {
       console.error("Error submitting post:", error.message);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      //로그인한 사람 데이터 찾기
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+      setUserid(userData.user.id);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
