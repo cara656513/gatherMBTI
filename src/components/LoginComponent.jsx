@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import supabase from '../supabase'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Header } from './Header';
 const Container = styled.div`
     display: flex;
     width: 100vw;
@@ -31,7 +32,7 @@ const InputonBox = styled.div`
      `
 const Input = styled.input`
    width: 340px;
-   height: 40px;
+   height: 50px;
    font-size: 15px;
    border: 1px solid #ccc;
    border-radius: 10px;
@@ -94,12 +95,16 @@ const LoginComponent = () => {
     }
 
 
-
   }
-
+  const signUp = () => {
+    navigate("/signup")
+    
+    }
+    
   return (
     <>
       <Container>
+   
         <Logincontainer>
           <LoginTitle>로그인</LoginTitle>
           <form action="" onSubmit={signInUser} >
@@ -119,6 +124,7 @@ const LoginComponent = () => {
             <ButtonBox>
               <p>{errorMessage}</p>
               <LargeButton type='submit'>로그인</LargeButton>
+              
             </ButtonBox>
 
           </form>

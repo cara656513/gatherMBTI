@@ -51,8 +51,8 @@ export const ImgLabel = styled.label`
 export const PlusImgStyle = styled.img`
   width: 200px;
   height: 200px;
-  border-radius: '50%',
-  object-fit: 'cover',
+  border-radius: '50%';
+  object-fit: 'cover';
 `;
 
 export const PlusImgInput = styled.input`
