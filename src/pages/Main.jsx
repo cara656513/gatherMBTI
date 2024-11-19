@@ -86,6 +86,7 @@ const Main = () => {
     return user && user.mbti === userMbti;
   });
 
+
   const Logout = async () => {
     const { data, error } = await supabase.auth.signOut();
     console.log("signout: ", { data, error });
@@ -94,6 +95,8 @@ const Main = () => {
 
   return (
     <>
+      <Header/>
+
       <MainBox>
         {currentUser ? (
           // 로그인 후 페이지

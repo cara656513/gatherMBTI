@@ -23,18 +23,12 @@ const Login = () => {
   const Logout = async() => {
     const { data, error } = await supabase.auth.signOut();
     console.log("signout: ", { data, error }); // data는 딱히 필요없을 듯
-    navigate  = ("/login")
+    navigate("/login")
   }
 
   return (
     <>
-      <Header menus={[
-        { route: "/signup", menu: "회원가입" },
-        
-       
-      ]}
-         Logout={Logout}
-      />
+      <Header />
 
       <LoginComponent />
     </>
