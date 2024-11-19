@@ -22,7 +22,7 @@ const MenuWrapper = styled.div`
   }
 `;
 
-export const Header = ({ menus ,Logout }) => {
+export const Header = ({ menus, Logout }) => {
   return (
     <HeaderWrapper>
       <Link to="/">
@@ -40,8 +40,7 @@ export const Header = ({ menus ,Logout }) => {
               {menu.menu}
             </Link>
           );
-        })
-        }
+        })}
       </MenuWrapper>
     </HeaderWrapper>
   );
