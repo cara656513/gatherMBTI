@@ -4,6 +4,7 @@ import reset from "styled-reset";
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   a{
+
     text-decoration-line: none;
     color: black
   }
@@ -18,5 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {font-family: 'KBO-Dia-Gothic_light';}
+
 
 `;
