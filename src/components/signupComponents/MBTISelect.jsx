@@ -50,8 +50,7 @@ const MBTISelect = ({ children, mbti, setMbti }) => {
   return (
     <div>
       <LabelStyle>
-        {children}
-        <StarText>*</StarText>
+        <div>{children}<StarText>*</StarText></div>
         <SelectStyle value={mbti} onChange={handleMbtiChange} required>
           <option value="">MBTI 선택</option>
           {mbtiOptions.map((option) => (

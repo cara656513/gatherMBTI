@@ -8,6 +8,7 @@ const SignUpImg = styled.div`
   align-items: center;
   font-size: 40px;
   margin: -10px;
+  gap: 8px;
 `;
 
 const ImgLabel = styled.label`
