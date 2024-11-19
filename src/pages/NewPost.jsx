@@ -1,54 +1,19 @@
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
-
 import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 import { uploadFile } from "../api/storage";
-import styled from "styled-components";
+import {
+  Button,
+  Input,
+  InputForm,
+  InputWrapper,
+  Label,
+} from "../styles/PostInputStyles";
 
-const InputForm = styled.form`
-  display: grid;
-  place-items: center;
-`;
-const InputWrapper = styled.div`
-  padding: 100px 0 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Input = styled.input`
-  width: 400px;
-  height: 400px;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 20px;
-`;
-const Button = styled.button`
-  border: 1px solid black;
-  border-radius: 50px;
-  background-color: orange;
-  padding: 10px;
-  width: 100px;
-`;
-const Label = styled.label`
-  width: 400px;
-  height: 400px;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 20px;
-  background-color: #f2f2f2;
-  color: #bdbdbd;
-  font-size: 50px;
-  text-align: center;
-  display: grid;
-  place-items: center;
-`;
 const NewPost = () => {
   const [userid, setUserid] = useState();
-
   const [input, setInput] = useState({ img: null, text: "" });
   const navigate = useNavigate();
 

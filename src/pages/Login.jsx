@@ -2,7 +2,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import LoginComponent from "../components/LoginComponent";
 
-
 const Login = () => {
   const navigate = useNavigate () ; 
   const Logout = async() => {
