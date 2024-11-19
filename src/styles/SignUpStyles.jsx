@@ -21,47 +21,6 @@ export const LoginSignUp = styled.div`
   margin: 10px;
 `;
 
-<<<<<<< HEAD
-export const SignUpImg = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  margin: -10px;
-`;
-
-export const ImgLabel = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  background-color: orange;
-  border: 2px dashed black;
-  cursor: pointer;
-  font-size: 50px;
-  overflow: hidden;
-
-  &:hover {
-    background-color: #ffb300;
-  }
-`;
-
-export const PlusImgStyle = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: '50%';
-  object-fit: 'cover';
-`;
-
-export const PlusImgInput = styled.input`
-  display: none;
-`;
-
-=======
->>>>>>> b808e81abfa492669e7d3e8b4735e0f2e9cd70fc
 export const SignUpInput = styled.div`
   display: flex;
   flex-direction: row;
