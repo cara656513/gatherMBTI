@@ -148,6 +148,7 @@ const UserboxImage = styled.img`
   width: 27.78px;
   height: 27.78px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserboxId = styled.p`
@@ -157,13 +158,6 @@ const UserboxId = styled.p`
   cursor: pointer;
 `;
 
-const LikeButtonImage = styled.img`
-  width: 15.28px;
-  height: 13.37px;
-  width: 15.28px;
-  height: 13.37px;
-  filter: brightness(0) invert(1);
-`;
 
 export {
   MainBox,
@@ -178,7 +172,6 @@ export {
   Userbox,
   UserboxImage,
   UserboxId,
-  LikeButtonImage,
   HomeBox,
   HomeLogo,
   HomeLogoText,
