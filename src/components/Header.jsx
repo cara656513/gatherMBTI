@@ -57,11 +57,7 @@ export const Header = () => {
     menu: '회원가입',
     type: 'link'
   },
-  {
-    route: '/login',
-    menu: '로그인',
-    type: 'link'
-  },
+
   
   {
     onClick: handleLogout,
