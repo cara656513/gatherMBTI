@@ -21,6 +21,7 @@ export const LoginSignUp = styled.div`
   margin: 10px;
 `;
 
+<<<<<<< HEAD
 export const SignUpImg = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,6 +60,8 @@ export const PlusImgInput = styled.input`
   display: none;
 `;
 
+=======
+>>>>>>> b808e81abfa492669e7d3e8b4735e0f2e9cd70fc
 export const SignUpInput = styled.div`
   display: flex;
   flex-direction: row;
@@ -76,37 +79,6 @@ export const AccountInfor = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-`;
-
-export const LabelStyle = styled.label`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-`;
-
-export const InputStyle = styled.input`
-  border-radius: 8px;
-  width: 200px;
-  padding: 7px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: orange;
-    outline: none;
-  }
-`;
-
-export const SelectStyle = styled.select`
-  border-radius: 8px;
-  padding: 7px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: orange;
-    outline: none;
-  }
 `;
 
 export const Introduction = styled.input`
@@ -146,8 +118,4 @@ export const LoginButton = styled.button`
   &:hover {
     background-color: #ffb300;
   }
-`;
-
-export const StarText = styled.span`
-  color: red;
 `;

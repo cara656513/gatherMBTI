@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import ProfileImageUpload from "../components/signupComponents/ProfileImageUpload";
+import MBTISelect from "../components/signupComponents/MBTISelect";
+import InputField from "../components/signupComponents/InputField";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import {
@@ -6,19 +9,11 @@ import {
   BasicInfor,
   Container,
   HeaderStyle,
-  ImgLabel,
-  InputStyle,
-  LabelStyle,
   SignUpButton,
   SignUpInput,
-  SelectStyle,
   LoginSignUp,
   LoginButton,
-  SignUpImg,
-  StarText,
   Introduction,
-  PlusImgInput,
-  PlusImgStyle,
 } from "../styles/SignUpStyles";
 
 const SignUp = () => {
@@ -36,24 +31,21 @@ const SignUp = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
   const handlePasswordConfirmChange = (e) => {
     setPasswordConfirm(e.target.value);
   };
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
+
   const handleNickNameChange = (e) => {
     setNickName(e.target.value);
-  };
-  const handleMbtiChange = (e) => {
-    setMbti(e.target.value);
-  };
-
-  const handleProfileImgChange = (e) => {
-    setProfileImg(e.target.files[0]);
   };
 
   const handleProfileTextChange = (e) => {
@@ -117,6 +109,7 @@ const SignUp = () => {
         },
       ])
       .select();
+
     if (error) {
       alert(error.message);
       return;
@@ -146,114 +139,56 @@ const SignUp = () => {
           <SignUpButton type="button">회원가입</SignUpButton>
         </LoginSignUp>
       </HeaderStyle>
-      <SignUpImg>
-        <p>회원가입</p>
-        <ImgLabel htmlFor="fileInput">
-          {profileImg ? (
-            <PlusImgStyle
-              id="fileInput"
-              src={URL.createObjectURL(profileImg)}
-              alt="ProfileImg"
-            />
-          ) : (
-            "+"
-          )}
-          <PlusImgInput
-            id="fileInput"
-            type="file"
-            accept="image/*"
-            onChange={handleProfileImgChange}
-          />
-        </ImgLabel>
-      </SignUpImg>
+      <ProfileImageUpload profileImg={profileImg} setProfileImg={setProfileImg}>
+        회원가입
+      </ProfileImageUpload>
       <SignUpInput>
         <BasicInfor>
-          <LabelStyle>
-            <p>
-              이름<StarText>*</StarText>
-            </p>
-            <InputStyle
-              type="text"
-              value={name}
-              placeholder={"신짱구"}
-              onChange={handleNameChange}
-              required
-            />
-          </LabelStyle>
-          <LabelStyle>
-            <p>
-              닉네임<StarText>*</StarText>
-            </p>
-            <InputStyle
-              type="text"
-              value={nickName}
-              placeholder={"burger_lover"}
-              onChange={handleNickNameChange}
-              required
-            />
-          </LabelStyle>
-          <LabelStyle>
-            <p>
-              MBTI<StarText>*</StarText>
-            </p>
-            <SelectStyle value={mbti} onChange={handleMbtiChange} required>
-              <option value="">MBTI 선택</option>
-              <option value="ISTJ">ISTJ</option>
-              <option value="ISFJ">ISFJ</option>
-              <option value="INFJ">INFJ</option>
-              <option value="INTJ">INTJ</option>
-              <option value="ISTP">ISTP</option>
-              <option value="ISFP">ISFP</option>
-              <option value="INFP">INFP</option>
-              <option value="INTP">INTP</option>
-              <option value="ESTP">ESTP</option>
-              <option value="ESFP">ESFP</option>
-              <option value="ENFP">ENFP</option>
-              <option value="ENTP">ENTP</option>
-              <option value="ESTJ">ESTJ</option>
-              <option value="ESFJ">ESFJ</option>
-              <option value="ENFJ">ENFJ</option>
-              <option value="ENTJ">ENTJ</option>
-            </SelectStyle>
-          </LabelStyle>
+          <InputField
+            type={"text"}
+            state={name}
+            placeholder={"신짱구"}
+            onChange={handleNameChange}
+          >
+            이름
+          </InputField>
+          <InputField
+            type={"text"}
+            state={nickName}
+            placeholder={"burger_lover"}
+            onChange={handleNickNameChange}
+          >
+            닉네임
+          </InputField>
+          <MBTISelect mbti={mbti} setMbti={setMbti}>
+            MBTI
+          </MBTISelect>
         </BasicInfor>
         <AccountInfor>
-          <LabelStyle>
-            <p>
-              이메일<StarText>*</StarText>
-            </p>
-            <InputStyle
-              type="email"
-              value={email}
-              placeholder={"example@example.com"}
-              onChange={handleEmailChange}
-              required
-            />
-          </LabelStyle>
-          <LabelStyle>
-            <p>
-              패스워드<StarText>*</StarText>
-            </p>
-            <InputStyle
-              type="password"
-              value={password}
-              placeholder={"passward"}
-              onChange={handlePasswordChange}
-              required
-            />
-          </LabelStyle>
-          <LabelStyle>
-            <p>
-              패스워드 확인<StarText>*</StarText>
-            </p>
-            <InputStyle
-              type="password"
-              value={passWordConfirm}
-              placeholder={"passward"}
-              onChange={handlePasswordConfirmChange}
-              required
-            />
-          </LabelStyle>
+          <InputField
+            type={"email"}
+            state={email}
+            placeholder={"example@example.com"}
+            onChange={handleEmailChange}
+          >
+            이메일
+          </InputField>
+          <InputField
+            type={"password"}
+            state={password}
+            placeholder={"password"}
+            onChange={handlePasswordChange}
+          >
+            패스워드
+          </InputField>
+          <InputField
+            type={"password"}
+            state={passWordConfirm}
+            placeholder={"password"}
+            onChange={handlePasswordConfirmChange}
+          >
+            패스워드 확인
+          </InputField>
         </AccountInfor>
       </SignUpInput>
       <label>
