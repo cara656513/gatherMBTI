@@ -36,7 +36,13 @@ export const UserFetchData = () => {
         .map((data) => {
           return (
             <UserHiWrapper key={data.id}>
-              <ProfileImg src={data.profile_img}></ProfileImg>
+              <ProfileImg
+                src={
+                  data.profile_img
+                    ? data.profile_img
+                    : `src/images/empty_profile.jpg`
+                }
+              ></ProfileImg>
               <div>안녕하세요, {data.name}님!</div>
             </UserHiWrapper>
           );
