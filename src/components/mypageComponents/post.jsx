@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import supabase from "../../supabase";
-import { ImgBox, ImgWrapper } from "../../styles/MyPageStyles";
-import { Link } from "react-router-dom";
+import { ImgWrapper } from "../../styles/MyPageStyles";
+import { Link, useNavigate } from "react-router-dom";
+import { Postbox, PostboxImage, PostboxContent } from "/src/styles/MainStyles";
 
 export const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
@@ -30,15 +31,27 @@ export const PostFetchData = () => {
     fetchData();
   }, []);
 
-  // const handleUpdatePost = async (e) => {
-  //   console.log(e.target.id);
+  const navigate = useNavigate();
+  const handleUpdatePost = async (e) => {
+    e.preventDefault();
+    navigate(`/updatepost/${e.target.id}`);
 
-  //   const { data, error } = await supabase
-  //     .from("posts")
-  //     .update({ other_column: "otherValue" })
-  //     .eq("some_column", "someValue")
-  //     .select();
-  // };
+    // const { data, error } = await supabase
+    //   .from("posts")
+    //   .update({ other_column: "otherValue" })
+    //   .eq("some_column", "someValue")
+    //   .select();
+  };
+
+  const handleDeletePost = async (e) => {
+    e.preventDefault();
+    const { error } = await supabase
+      .from("posts")
+      .delete()
+      .eq("id", e.target.id);
+    alert("글이 삭제되었습니다!");
+    navigate(`/`);
+  };
 
   return (
     <ImgWrapper>
@@ -48,10 +61,24 @@ export const PostFetchData = () => {
           return (
             <>
               <Link key={data.id} to="/detail">
-                <ImgBox src={data.picture} />
+                <Postbox>
+                  <PostboxImage src={data.picture} alt="Post image" />
+                  <PostboxContent
+                  // onClick={() => {
+                  //   Navigate(`/detail`);
+                  // }}
+                  >
+                    {data.content}
+                  </PostboxContent>
+
+                  <button id={data.id} onClick={handleUpdatePost}>
+                    수정
+                  </button>
+                  <button id={data.id} onClick={handleDeletePost}>
+                    삭제
+                  </button>
+                </Postbox>
               </Link>
-              <button id={data.id}>수정</button>
-              <button>삭제</button>
             </>
           );
         })}

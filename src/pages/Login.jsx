@@ -1,5 +1,6 @@
 import { Header } from "../components/Header";
 import LoginComponent from "../components/LoginComponent";
+
 import styled from "styled-components";
 const HeaderWrapper = styled.div`
   height: 100px;
@@ -14,16 +15,16 @@ const HeaderWrapper = styled.div`
   background-color: white;
   box-sizing: border-box;
 `;
+
+
 const Login = () => {
   return (
     <>
- <Header
-        menus={[
-        
-          { route: "/signup", menu: "회원가입" },
-        ]}
+      <Header menus={[
+        { route: "/signup", menu: "회원가입" },
+      ]}
       />
-   
+
       <LoginComponent />
     </>
   );
