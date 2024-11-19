@@ -86,29 +86,14 @@ const Main = () => {
     return user && user.mbti === userMbti;
   });
 
-
-  const Logout = async () => {
-    const { data, error } = await supabase.auth.signOut();
-    console.log("signout: ", { data, error });
-    navigate("/login");
-  };
-
   return (
     <>
-      <Header/>
+      <Header />
 
       <MainBox>
         {currentUser ? (
           // 로그인 후 페이지
           <>
-            <Header
-              menus={[
-                { route: "/newpost", menu: "글쓰기" },
-                { route: "/mypage", menu: "마이 페이지" },
-                { route: "/login", menu: "로그아웃" },
-              ]}
-              Logout={Logout}
-            />
             <MainCategory>
               <MainCategoryMbti>
                 {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
@@ -177,12 +162,6 @@ const Main = () => {
         ) : (
           // 로그인 전 페이지
           <>
-            <Header
-              menus={[
-                { route: "/login", menu: "로그인" },
-                { route: "/signup", menu: "회원가입" },
-              ]}
-            />
             <HomeBox>
               <HomeLogo src="src\images\logo2.svg" />
               <HomeLogoText>
