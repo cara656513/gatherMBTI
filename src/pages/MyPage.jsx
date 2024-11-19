@@ -9,7 +9,7 @@ const MyPage = () => {
     <>
       <Header
         menus={[
-          { route: "/newpost", menu: "글쓰기", type: "link" },
+          { route: "/newpost", menu: "글쓰기" },
           { menu: "로그아웃", type: "button" },
         ]}
       />
