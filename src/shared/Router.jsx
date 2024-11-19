@@ -5,6 +5,7 @@ import MyPage from "../pages/MyPage";
 import SignUp from "../pages/SignUp";
 import Detail from "../pages/Detail";
 import NewPost from "../pages/NewPost";
+import UpdatePost from "../pages/UpdatePost";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/newpost" element={<NewPost />} />
+          <Route path="/updatepost/:id?" element={<UpdatePost />} />
         </Routes>
       </BrowserRouter>
     </>

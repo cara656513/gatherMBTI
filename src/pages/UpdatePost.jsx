@@ -1,11 +1,10 @@
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
-
 import { useEffect, useState } from "react";
 import supabase from "../supabase";
-import { useNavigate } from "react-router-dom";
-import { uploadFile } from "../api/storage";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { uploadFile } from "../api/storage";
 
 const InputForm = styled.form`
   display: grid;
@@ -46,11 +45,11 @@ const Label = styled.label`
   display: grid;
   place-items: center;
 `;
-const NewPost = () => {
+const UpdatePost = () => {
   const [userid, setUserid] = useState();
-
   const [input, setInput] = useState({ img: null, text: "" });
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleInputChange = (e) => {
     const { id, value, files } = e.target;
@@ -64,8 +63,8 @@ const NewPost = () => {
   const handleSubmitPost = async (e) => {
     e.preventDefault();
 
-    if (!input.text) {
-      alert("내용은 꼭 입력해주세요!");
+    if (!input.text && !input.img) {
+      alert("수정 사항이 없습니다.");
       return;
     }
 
@@ -75,19 +74,18 @@ const NewPost = () => {
       if (input.img) {
         const url = await uploadFile(input);
         updatingObj.picture = url;
-      } else {
-        updatingObj.picture = null;
       }
       updatingObj.content = input.text;
 
-      const { data, error } = await supabase.from("posts").insert({
-        user_id: userid,
-        ...updatingObj,
-      });
+      const { data, error } = await supabase
+        .from("posts")
+        .update(updatingObj)
+        .eq("id", `${id}`)
+        .select();
 
       if (error) throw error;
 
-      alert("글이 등록되었습니다!");
+      alert("글이 수정되었습니다!");
       navigate("/");
       console.log("Post data:", data);
 
@@ -144,14 +142,14 @@ const NewPost = () => {
             type="text"
             id="text"
             onChange={handleInputChange}
-            placeholder="오늘은 무슨 생각 하셨나요?"
+            placeholder="수정할 내용을 입력해주세요."
           />
         </InputWrapper>
-        <Button type="submit">올리기</Button>
+        <Button type="submit">수정하기</Button>
       </InputForm>
       <Footer />
     </div>
   );
 };
 
-export default NewPost;
+export default UpdatePost;
