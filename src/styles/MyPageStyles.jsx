@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   margin: 100px 0 0 0;
 `;
 
-
 export const ImgBox = styled.img`
   height: 300px;
   width: 300px;
@@ -20,7 +19,6 @@ export const ImgWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
 
 export const ProfileImg = styled.img`
   height: 100px;
