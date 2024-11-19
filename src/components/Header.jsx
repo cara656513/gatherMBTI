@@ -23,16 +23,17 @@ const MenuWrapper = styled.div`
   }
 `;
 const LargeButton = styled.button`
-    width: 150px;
-    height: 55px;
-    font-size: 16px;
-  
-    background: none;
-    border: none;
-     `
+  width: 150px;
+  height: 55px;
+  font-size: 16px;
 
-export const Header = () => {
+  background: none;
+  border: none;
+`;
+
+export const Header = ({ currentUser }) => {
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -42,39 +43,39 @@ export const Header = () => {
       navigate("/login");
     }
   };
-  const menus = [{
-    route: '/newpost',
-    menu: '글쓰기',
-    type: 'link'
-  },
-  {
-    route: '/mypage',
-    menu: '마이 페이지',
-    type: 'link'
-  },
-  {
-    route: '/signup',
-    menu: '회원가입',
-    type: 'link'
-  },
-  {
-    route: '/login',
-    menu: '로그인',
-    type: 'link'
-  },
-  
-  {
-    onClick: handleLogout,
 
-    menu: '로그아웃',
-    type: 'button'
+  const menus = currentUser
+    ? [
+        {
+          route: "/newpost",
+          menu: "글쓰기",
+          type: "link",
+        },
+        {
+          route: "/mypage",
+          menu: "마이 페이지",
+          type: "link",
+        },
+        {
+          onClick: handleLogout,
 
-  },
- 
+          menu: "로그아웃",
+          type: "button",
+        },
+      ]
+    : [
+        {
+          route: "/signup",
+          menu: "회원가입",
+          type: "link",
+        },
+        {
+          route: "/login",
+          menu: "로그인",
+          type: "link",
+        },
+      ];
 
-  ]
-
-  
   return (
     <HeaderWrapper>
       <Link to="/">
@@ -83,18 +84,16 @@ export const Header = () => {
             width: "100px",
           }}
           src="src/images/logo.svg"
-        />{""}
+        />
       </Link>
       <MenuWrapper>
         {menus.map((menu) => {
-          return menu.type === 'button' ? (
-         
-            <LargeButton onClick={menu.onClick}>{menu.menu} </LargeButton>
+          return menu.type === "button" ? (
+            <LargeButton onClick={menu.onClick}>{menu.menu}</LargeButton>
           ) : (
             <Link to={menu.route}>{menu.menu}</Link>
           );
         })}
-
       </MenuWrapper>
     </HeaderWrapper>
   );

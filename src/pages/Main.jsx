@@ -16,8 +16,6 @@ import {
   Userbox,
   UserboxImage,
   UserboxId,
-  LikeButton,
-  LikeButtonImage,
   HomeBox,
   HomeLogo,
   HomeLogoText,
@@ -88,7 +86,7 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      <Header currentUser={currentUser} />
 
       <MainBox>
         {currentUser ? (
@@ -120,13 +118,20 @@ const Main = () => {
                 )}
               </MainCategoryHashtagWrapper>
             </MainCategory>
+
             <PostboxWrapper>
               {filteredPosts.map((post) => {
                 const user = users.find((user) => user.id === post.user_id);
 
                 return (
                   <Postbox key={post.id}>
-                    <PostboxImage src={post.picture} alt="Post image" />
+                    <PostboxImage
+                      src={post.picture}
+                      alt="Post image"
+                      onClick={() => {
+                        navigate(`/detail/${post.id}`);
+                      }}
+                    />
                     <PostboxContent
                       onClick={() => {
                         navigate(`/detail/${post.id}`);
@@ -138,8 +143,7 @@ const Main = () => {
                     <Userbox key={user ? user.id : post.id}>
                       <UserboxImage
                         src={
-                          user?.profile_img ||
-                          "https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f92b.svg"
+                          user?.profile_img || "src/images/empty_profile.jpg"
                         }
                         alt="Userbox image"
                       />
@@ -150,9 +154,6 @@ const Main = () => {
                       >
                         {user ? user.nickname : "Unknown User"}
                       </UserboxId>
-                      <LikeButton>
-                        <LikeButtonImage src="src\images\heart.svg" />
-                      </LikeButton>
                     </Userbox>
                   </Postbox>
                 );
