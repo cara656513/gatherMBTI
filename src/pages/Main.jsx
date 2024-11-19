@@ -33,7 +33,6 @@ const Main = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       // 현재 로그인 된 사용자 데이터 가져오기
 
       const { data: userData, error: userError } =
@@ -44,7 +43,6 @@ const Main = () => {
       }
       console.log("userData : ", userData);
       setCurrentUser(userData.user);
-
 
       // 전체 사용자 데이터 가져오기
 
@@ -57,7 +55,6 @@ const Main = () => {
       }
       console.log("allUsers : ", allUsers);
       setUsers(allUsers);
-
 
       // 현재 로그인된 사용자의 MBTI 정보 설정
       if (userData.user) {
@@ -89,15 +86,13 @@ const Main = () => {
     return user && user.mbti === userMbti;
   });
 
-
   return (
     <>
-      <Header currentUser={currentUser} />
-
-      <MainBox>
-        {currentUser ? (
-          // 로그인 후 페이지
-          <>
+      {currentUser ? (
+        // 로그인 후 페이지
+        <>
+          <Header />
+          <MainBox>
             <MainCategory>
               <MainCategoryMbti>
                 {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
@@ -160,20 +155,27 @@ const Main = () => {
                       >
                         {user ? user.nickname : "Unknown User"}
                       </UserboxId>
-
                     </Userbox>
                   </Postbox>
                 );
               })}
             </PostboxWrapper>
-          </>
-        ) : (
-          // 로그인 전 페이지
-          <>
+          </MainBox>
+        </>
+      ) : (
+        // 로그인 전 페이지
+        <>
+          <Header
+            menus={[
+              { route: "/login", menu: "로그인", type: "link" },
+              { route: "/signup", menu: "회원가입", type: "link" },
+            ]}
+          />
+          <MainBox>
             <HomeBox>
               <HomeLogo src="src\images\logo2.svg" />
               <HomeLogoText>
-                같은 <span>MTBI</span>끼리
+                같은 <span>MBTI</span>끼리
                 <br />
                 모아보는 공감 스토리
               </HomeLogoText>
@@ -185,9 +187,9 @@ const Main = () => {
                 회원가입
               </SignUpButton>
             </HomeBox>
-          </>
-        )}
-      </MainBox>
+          </MainBox>
+        </>
+      )}
       <Footer />
     </>
   );

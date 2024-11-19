@@ -14,7 +14,7 @@ const MainCategory = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 401px;
+  width: 500px;
   height: 174px;
   margin: 150px 760px 91px 759px;
 `;
@@ -157,7 +157,6 @@ const UserboxId = styled.p`
   margin: 5.19px 26.64px 0px 7.56px;
   cursor: pointer;
 `;
-
 
 export {
   MainBox,
