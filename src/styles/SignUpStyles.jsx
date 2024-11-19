@@ -6,19 +6,7 @@ export const Container = styled.form`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-`;
-
-export const HeaderStyle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-`;
-
-export const LoginSignUp = styled.div`
-  display: flex;
-  gap: 30px;
-  margin: 10px;
+  margin-top: 120px;
 `;
 
 export const SignUpInput = styled.div`
@@ -44,7 +32,8 @@ export const Introduction = styled.input`
   width: 500px;
   height: 50px;
   border-radius: 8px;
-  margin: 20px;
+  margin: 20px 5px 20px 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
 
@@ -62,17 +51,7 @@ export const SignUpButton = styled.button`
   border: 1px solid black;
   cursor: pointer;
   transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #ffb300;
-  }
-`;
-
-export const LoginButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  margin-bottom: 70px;
 
   &:hover {
     background-color: #ffb300;

@@ -8,13 +8,12 @@ import {
   AccountInfor,
   BasicInfor,
   Container,
-  HeaderStyle,
   SignUpButton,
   SignUpInput,
-  LoginSignUp,
-  LoginButton,
   Introduction,
 } from "../styles/SignUpStyles";
+import { Header } from "../components/Header";
+import Footer from "../components/Footer";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -132,13 +131,12 @@ const SignUp = () => {
 
   return (
     <Container onSubmit={handleSubmit}>
-      <HeaderStyle>
-        <h3>모여라 MBTI</h3>
-        <LoginSignUp>
-          <LoginButton type="button">로그인</LoginButton>
-          <SignUpButton type="button">회원가입</SignUpButton>
-        </LoginSignUp>
-      </HeaderStyle>
+      <Header
+        menus={[
+          { route: "/login", menu: "로그인" },
+          { route: "/signup", menu: "회원가입" },
+        ]}
+      />
       <ProfileImageUpload profileImg={profileImg} setProfileImg={setProfileImg}>
         회원가입
       </ProfileImageUpload>
@@ -201,6 +199,7 @@ const SignUp = () => {
         />
       </label>
       <SignUpButton type="submit">가입하기</SignUpButton>
+      <Footer />
     </Container>
   );
 };
