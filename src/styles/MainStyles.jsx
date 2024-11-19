@@ -49,7 +49,7 @@ const MainCategoryMbtiSub = styled.p`
   margin-bottom: 17px;
 `;
 
-const MainCategoryHashtag = styled.p`
+const MainCategoryHashtag = styled.div`
   @font-face {
     font-family: "KBO-Dia-Gothic_medium";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
@@ -68,6 +68,12 @@ const MainCategoryHashtag = styled.p`
   border: 2px solid black;
   border-radius: 89.5px;
   text-align: center;
+`;
+
+const MainCategoryHashtagWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 `;
 
 const PostboxWrapper = styled.div`
@@ -187,6 +193,7 @@ export {
   HomeLogo,
   HomeLogoText,
   SignUpButton,
+  MainCategoryHashtagWrapper,
 };
 
 const HomeBox = styled.div`
@@ -202,7 +209,7 @@ const HomeBox = styled.div`
 const HomeLogo = styled.img`
   width: 62.12px;
   height: 126.87px;
-`
+`;
 
 const HomeLogoText = styled.p`
   @font-face {
@@ -218,22 +225,22 @@ const HomeLogoText = styled.p`
 
   span {
     @font-face {
-    font-family: "KBO-Dia-Gothic_medium";
-    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
-      format("woff");
-    font-weight: 700;
-    font-style: normal;
-  }
-  font-family: "KBO-Dia-Gothic_medium", sans-serif;
-  font-size: 60px;
-  text-align: center;
+      font-family: "KBO-Dia-Gothic_medium";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
+        format("woff");
+      font-weight: 700;
+      font-style: normal;
+    }
+    font-family: "KBO-Dia-Gothic_medium", sans-serif;
+    font-size: 60px;
+    text-align: center;
   }
 
   width: 493px;
   height: 180px;
-`
+`;
 const SignUpButton = styled.button`
-    @font-face {
+  @font-face {
     font-family: "KBO-Dia-Gothic_medium";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
       format("woff");
@@ -246,8 +253,8 @@ const SignUpButton = styled.button`
 
   width: 150px;
   height: 55px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 2px solid black;
   border-radius: 89.5px;
   cursor: pointer;
-`
+`;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
+import MbtiFeatures from "../shared/MbtiFeatures";
 import {
   MainBox,
   MainCategory,
@@ -21,6 +22,7 @@ import {
   HomeLogo,
   HomeLogoText,
   SignUpButton,
+  MainCategoryHashtagWrapper,
 } from "../styles/MainStyles";
 
 const Main = () => {
@@ -96,11 +98,28 @@ const Main = () => {
               ]}
             />
             <MainCategory>
-              <MainCategoryMbti>{userMbti}</MainCategoryMbti>
+              <MainCategoryMbti>
+                {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
+                  ({ MBTI }) => (
+                    <div key={MBTI}>{MBTI}</div>
+                  )
+                )}
+              </MainCategoryMbti>
               <MainCategoryMbtiSub>
-                겉은 평온, 속은 드라마 한 시즌 완결 중인 감성 폭발 공상러!
+                {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
+                  ({ feature }) => (
+                    <div key={feature}>{feature}</div>
+                  )
+                )}
               </MainCategoryMbtiSub>
-              <MainCategoryHashtag>#이해심</MainCategoryHashtag>
+              <MainCategoryHashtagWrapper>
+                {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
+                  ({ hashTag }) =>
+                    hashTag.map((tag) => (
+                      <MainCategoryHashtag key={tag}>#{tag}</MainCategoryHashtag>
+                    ))
+                )}
+              </MainCategoryHashtagWrapper>
             </MainCategory>
             <PostboxWrapper>
               {filteredPosts.map((post) => {
@@ -125,9 +144,11 @@ const Main = () => {
                         }
                         alt="Userbox image"
                       />
-                      <UserboxId onClick={() => {
-                        navigate(`/mypage/${user.id}`)
-                      }}>
+                      <UserboxId
+                        onClick={() => {
+                          navigate(`/mypage/${user.id}`);
+                        }}
+                      >
                         {user ? user.nickname : "Unknown User"}
                       </UserboxId>
                       <LikeButton>
