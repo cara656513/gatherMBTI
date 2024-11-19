@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ProfileImageUpload from "../components/signupComponents/ProfileImageUpload";
 import MBTISelect from "../components/signupComponents/MBTISelect";
 import InputField from "../components/signupComponents/InputField";
+import { Header } from "../components/Header";
+import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import {
@@ -12,8 +14,6 @@ import {
   SignUpInput,
   Introduction,
 } from "../styles/SignUpStyles";
-import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -30,27 +30,21 @@ const SignUp = () => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
   const handlePasswordConfirmChange = (e) => {
     setPasswordConfirm(e.target.value);
   };
-
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
-
   const handleNickNameChange = (e) => {
     setNickName(e.target.value);
   };
-
   const handleProfileTextChange = (e) => {
     setProfileText(e.target.value);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
