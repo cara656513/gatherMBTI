@@ -35,7 +35,7 @@ const MainCategoryMbti = styled.p`
 `;
 
 const MainCategoryMbtiSub = styled.p`
-    @font-face {
+  @font-face {
     font-family: "KBO-Dia-Gothic_light";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_light.woff")
       format("woff");
@@ -47,7 +47,7 @@ const MainCategoryMbtiSub = styled.p`
   font-size: 16px;
   text-align: center;
   margin-bottom: 17px;
-`
+`;
 
 const MainCategoryHashtag = styled.p`
   @font-face {
@@ -68,7 +68,7 @@ const MainCategoryHashtag = styled.p`
   border: 2px solid black;
   border-radius: 89.5px;
   text-align: center;
-  `
+`;
 
 const PostboxWrapper = styled.div`
   background-color: white;
@@ -169,18 +169,85 @@ const LikeButtonImage = styled.img`
 `;
 
 export {
-    MainBox,
-    MainCategory,
-    MainCategoryMbti,
-    MainCategoryMbtiSub,
-    MainCategoryHashtag,
-    PostboxWrapper,
-    Postbox,
-    PostboxImage,
-    PostboxContent,
-    Userbox,
-    UserboxImage,
-    UserboxId,
-    LikeButton,
-    LikeButtonImage,
-  };
+  MainBox,
+  MainCategory,
+  MainCategoryMbti,
+  MainCategoryMbtiSub,
+  MainCategoryHashtag,
+  PostboxWrapper,
+  Postbox,
+  PostboxImage,
+  PostboxContent,
+  Userbox,
+  UserboxImage,
+  UserboxId,
+  LikeButton,
+  LikeButtonImage,
+  HomeBox,
+  HomeLogo,
+  HomeLogoText,
+  SignUpButton,
+};
+
+const HomeBox = styled.div`
+  background-color: #fe8125;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 644px;
+  width: 100%;
+`;
+
+const HomeLogo = styled.img`
+  width: 62.12px;
+  height: 126.87px;
+`
+
+const HomeLogoText = styled.p`
+  @font-face {
+    font-family: "KBO-Dia-Gothic_light";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_light.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  font-family: "KBO-Dia-Gothic_light", sans-serif;
+  font-size: 60px;
+  text-align: center;
+
+  span {
+    @font-face {
+    font-family: "KBO-Dia-Gothic_medium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  font-family: "KBO-Dia-Gothic_medium", sans-serif;
+  font-size: 60px;
+  text-align: center;
+  }
+
+  width: 493px;
+  height: 180px;
+`
+const SignUpButton = styled.button`
+    @font-face {
+    font-family: "KBO-Dia-Gothic_medium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  font-family: "KBO-Dia-Gothic_medium", sans-serif;
+  font-size: 16px;
+  text-align: center;
+
+  width: 150px;
+  height: 55px;
+  background-color: #FFFFFF;
+  border: 2px solid black;
+  border-radius: 89.5px;
+  cursor: pointer;
+`

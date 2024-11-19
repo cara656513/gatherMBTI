@@ -1,6 +1,5 @@
 import { Header } from "../components/Header";
 import LoginComponent from "../components/LoginComponent";
-import { Header } from "../components/Header";
 import styled from "styled-components";
 const HeaderWrapper = styled.div`
   height: 100px;

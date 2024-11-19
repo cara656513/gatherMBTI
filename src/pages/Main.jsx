@@ -17,6 +17,10 @@ import {
   UserboxId,
   LikeButton,
   LikeButtonImage,
+  HomeBox,
+  HomeLogo,
+  HomeLogoText,
+  SignUpButton,
 } from "../styles/MainStyles";
 
 const Main = () => {
@@ -28,31 +32,42 @@ const Main = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      // 현재 로그인 된 사용자 데이터 가져오기
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
       if (userError) {
-        console.error("Error fetching user:", userError);
+        console.error("사용자 정보 불러오기 실패 : ", userError);
         return;
       }
+      console.log("userData : ", userData);
       setCurrentUser(userData.user);
 
-      const { data: allUsers, error: usersError } = await supabase.from("users").select("*");
+      // 전체 사용자 데이터 가져오기
+      const { data: allUsers, error: usersError } = await supabase
+        .from("users")
+        .select("*");
       if (usersError) {
-        console.error("Error fetching users:", usersError);
+        console.error("전체 사용자 정보 불러오기 실패 : ", usersError);
         return;
       }
+      console.log("allUsers : ", allUsers);
       setUsers(allUsers);
 
-      if (userData?.user) {
-        const loggedInUser = allUsers.find((user) => user.id === userData.user.id);
+      // 현재 로그인된 사용자의 MBTI 정보 설정
+      if (userData.user) {
+        const loggedInUser = allUsers.find(
+          (user) => user.id === userData.user.id
+        );
         if (loggedInUser) {
           setUserMbti(loggedInUser.mbti);
         }
       }
 
+      // 게시글 데이터 가져오기
       const { data: postData, error: postsError } = await supabase
         .from("posts")
         .select("*")
-        .order("id", { ascending: false });
+        .order("created_at", { ascending: false });
       if (postsError) {
         console.error("Error fetching posts:", postsError);
         return;
@@ -70,57 +85,85 @@ const Main = () => {
 
   return (
     <>
-      <Header
-        menus={[
-          { route: "/newpost", menu: "글쓰기" },
-          { route: "/mypage", menu: "마이 페이지" },
-        ]}
-      />
       <MainBox>
-      {currentUser ? (
+        {currentUser ? (
+          // 로그인 후 페이지
           <>
-        <MainCategory>
-          <MainCategoryMbti>{userMbti}</MainCategoryMbti>
-          <MainCategoryMbtiSub>
-            겉은 평온, 속은 드라마 한 시즌 완결 중인 감성 폭발 공상러!
-          </MainCategoryMbtiSub>
-          <MainCategoryHashtag>#이해심</MainCategoryHashtag>
-        </MainCategory>
-        <PostboxWrapper>
-          {filteredPosts.map((post) => {
-            const user = users.find((user) => user.id === post.user_id);
+            <Header
+              menus={[
+                { route: "/newpost", menu: "글쓰기" },
+                { route: "/mypage", menu: "마이 페이지" },
+              ]}
+            />
+            <MainCategory>
+              <MainCategoryMbti>{userMbti}</MainCategoryMbti>
+              <MainCategoryMbtiSub>
+                겉은 평온, 속은 드라마 한 시즌 완결 중인 감성 폭발 공상러!
+              </MainCategoryMbtiSub>
+              <MainCategoryHashtag>#이해심</MainCategoryHashtag>
+            </MainCategory>
+            <PostboxWrapper>
+              {filteredPosts.map((post) => {
+                const user = users.find((user) => user.id === post.user_id);
 
-            return (
-              <Postbox key={post.id}>
-                <PostboxImage src={post.picture} alt="Post image" />
-                <PostboxContent
-                  onClick={() => {
-                    navigate(`/detail/${post.id}`);
-                  }}
-                >
-                  {post.content}
-                </PostboxContent>
+                return (
+                  <Postbox key={post.id}>
+                    <PostboxImage src={post.picture} alt="Post image" />
+                    <PostboxContent
+                      onClick={() => {
+                        navigate(`/detail/${post.id}`);
+                      }}
+                    >
+                      {post.content}
+                    </PostboxContent>
 
-                <Userbox key={user ? user.id : post.id}>
-                  <UserboxImage
-                    src={
-                      user?.profile_img ||
-                      "https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f92b.svg"
-                    }
-                    alt="Userbox image"
-                  />
-                  <UserboxId>{user ? user.nickname : "Unknown User"}</UserboxId>
-                  <LikeButton>
-                    <LikeButtonImage src="src\images\heart.svg" />
-                  </LikeButton>
-                </Userbox>
-              </Postbox>
-            );
-          })}
-        </PostboxWrapper>
-        </>
+                    <Userbox key={user ? user.id : post.id}>
+                      <UserboxImage
+                        src={
+                          user?.profile_img ||
+                          "https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f92b.svg"
+                        }
+                        alt="Userbox image"
+                      />
+                      <UserboxId onClick={() => {
+                        navigate(`/mypage/${user.id}`)
+                      }}>
+                        {user ? user.nickname : "Unknown User"}
+                      </UserboxId>
+                      <LikeButton>
+                        <LikeButtonImage src="src\images\heart.svg" />
+                      </LikeButton>
+                    </Userbox>
+                  </Postbox>
+                );
+              })}
+            </PostboxWrapper>
+          </>
         ) : (
-          <div>로그인 전 페이지</div>
+          // 로그인 전 페이지
+          <>
+            <Header
+              menus={[
+                { route: "/login", menu: "로그인" },
+                { route: "/signup", menu: "회원가입" },
+              ]}
+            />
+            <HomeBox>
+              <HomeLogo src="src\images\logo.svg" />
+              <HomeLogoText>
+                같은 <span>MTBI</span>끼리
+                <br />
+                모아보는 공감 스토리
+              </HomeLogoText>
+              <SignUpButton
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              >
+                회원가입
+              </SignUpButton>
+            </HomeBox>
+          </>
         )}
       </MainBox>
     </>
