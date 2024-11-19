@@ -35,7 +35,7 @@ const MainCategoryMbti = styled.p`
 `;
 
 const MainCategoryMbtiSub = styled.p`
-    @font-face {
+  @font-face {
     font-family: "KBO-Dia-Gothic_light";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_light.woff")
       format("woff");
@@ -47,9 +47,9 @@ const MainCategoryMbtiSub = styled.p`
   font-size: 16px;
   text-align: center;
   margin-bottom: 17px;
-`
+`;
 
-const MainCategoryHashtag = styled.p`
+const MainCategoryHashtag = styled.div`
   @font-face {
     font-family: "KBO-Dia-Gothic_medium";
     src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
@@ -68,7 +68,13 @@ const MainCategoryHashtag = styled.p`
   border: 2px solid black;
   border-radius: 89.5px;
   text-align: center;
-  `
+`;
+
+const MainCategoryHashtagWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+`;
 
 const PostboxWrapper = styled.div`
   background-color: white;
@@ -110,6 +116,7 @@ const PostboxImage = styled.img`
   height: 222.22px;
   border-radius: 20px;
   margin: 13.19px 13.89px 12px 13.89px;
+  cursor: pointer;
 `;
 
 const PostboxContent = styled.button`
@@ -141,46 +148,98 @@ const UserboxImage = styled.img`
   width: 27.78px;
   height: 27.78px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserboxId = styled.p`
   width: 129px;
   height: 24px;
   margin: 5.19px 26.64px 0px 7.56px;
+  cursor: pointer;
 `;
 
-const LikeButton = styled.button`
+
+export {
+  MainBox,
+  MainCategory,
+  MainCategoryMbti,
+  MainCategoryMbtiSub,
+  MainCategoryHashtag,
+  PostboxWrapper,
+  Postbox,
+  PostboxImage,
+  PostboxContent,
+  Userbox,
+  UserboxImage,
+  UserboxId,
+  HomeBox,
+  HomeLogo,
+  HomeLogoText,
+  SignUpButton,
+  MainCategoryHashtagWrapper,
+};
+
+const HomeBox = styled.div`
+  background-color: #fe8125;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fe8125;
-  width: 27.78px;
-  height: 27.78px;
-  border-radius: 50%;
-  border: transparent;
+  flex-direction: column;
+  height: 644px;
+  width: 100%;
+  margin-top: 100.8px;
 `;
 
-const LikeButtonImage = styled.img`
-  width: 15.28px;
-  height: 13.37px;
-  width: 15.28px;
-  height: 13.37px;
-  filter: brightness(0) invert(1);
+const HomeLogo = styled.img`
+  width: 62.12px;
+  height: 126.87px;
+  margin-bottom: 12.13px;
 `;
 
-export {
-    MainBox,
-    MainCategory,
-    MainCategoryMbti,
-    MainCategoryMbtiSub,
-    MainCategoryHashtag,
-    PostboxWrapper,
-    Postbox,
-    PostboxImage,
-    PostboxContent,
-    Userbox,
-    UserboxImage,
-    UserboxId,
-    LikeButton,
-    LikeButtonImage,
-  };
+const HomeLogoText = styled.p`
+  @font-face {
+    font-family: "KBO-Dia-Gothic_light";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_light.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  font-family: "KBO-Dia-Gothic_light", sans-serif;
+  font-size: 60px;
+  text-align: center;
+
+  span {
+    @font-face {
+      font-family: "KBO-Dia-Gothic_medium";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
+        format("woff");
+      font-weight: 700;
+      font-style: normal;
+    }
+    font-family: "KBO-Dia-Gothic_medium", sans-serif;
+    font-size: 60px;
+    text-align: center;
+  }
+
+  width: 493px;
+  height: 180px;
+`;
+const SignUpButton = styled.button`
+  @font-face {
+    font-family: "KBO-Dia-Gothic_medium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_medium.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  font-family: "KBO-Dia-Gothic_medium", sans-serif;
+  font-size: 16px;
+  text-align: center;
+
+  width: 150px;
+  height: 55px;
+  background-color: #ffffff;
+  border: 2px solid black;
+  border-radius: 89.5px;
+  cursor: pointer;
+`;
