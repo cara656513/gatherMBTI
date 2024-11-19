@@ -24,6 +24,7 @@ import {
   SignUpButton,
   MainCategoryHashtagWrapper,
 } from "../styles/MainStyles";
+import Footer from "../components/Footer";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -93,8 +94,8 @@ const Main = () => {
           <>
             <Header
               menus={[
-                { route: "/newpost", menu: "글쓰기" },
                 { route: "/mypage", menu: "마이 페이지" },
+                { route: "/newpost", menu: "글쓰기" },
               ]}
             />
             <MainCategory>
@@ -187,6 +188,7 @@ const Main = () => {
           </>
         )}
       </MainBox>
+      <Footer />
     </>
   );
 };

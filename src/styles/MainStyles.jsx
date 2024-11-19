@@ -153,6 +153,7 @@ const UserboxId = styled.p`
   width: 129px;
   height: 24px;
   margin: 5.19px 26.64px 0px 7.56px;
+  cursor: pointer;
 `;
 
 const LikeButton = styled.button`
