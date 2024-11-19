@@ -205,11 +205,13 @@ const HomeBox = styled.div`
   flex-direction: column;
   height: 644px;
   width: 100%;
+  margin-top: 100.8px;
 `;
 
 const HomeLogo = styled.img`
   width: 62.12px;
   height: 126.87px;
+  margin-bottom: 12.13px;
 `;
 
 const HomeLogoText = styled.p`

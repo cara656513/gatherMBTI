@@ -86,32 +86,25 @@ const Main = () => {
     return user && user.mbti === userMbti;
   });
 
-  const Logout = async() => {
+  const Logout = async () => {
     const { data, error } = await supabase.auth.signOut();
-    console.log("signout: ", { data, error }); // data는 딱히 필요없을 듯
-    navigate  = ("/login")
-  }
+    console.log("signout: ", { data, error });
+    navigate("/login");
+  };
 
   return (
     <>
-      <Header
-        menus={[
-          { route: "/newpost", menu: "글쓰기" },
-          { route: "/mypage", menu: "마이 페이지" },
-          { route: "/login", menu: "로그아웃" },
-        ]
-      }
-      Logout ={Logout}
-     />
       <MainBox>
         {currentUser ? (
           // 로그인 후 페이지
           <>
             <Header
               menus={[
-                { route: "/mypage", menu: "마이 페이지" },
                 { route: "/newpost", menu: "글쓰기" },
+                { route: "/mypage", menu: "마이 페이지" },
+                { route: "/login", menu: "로그아웃" },
               ]}
+              Logout={Logout}
             />
             <MainCategory>
               <MainCategoryMbti>
@@ -132,7 +125,9 @@ const Main = () => {
                 {MbtiFeatures.filter(({ MBTI }) => MBTI === userMbti).map(
                   ({ hashTag }) =>
                     hashTag.map((tag) => (
-                      <MainCategoryHashtag key={tag}>#{tag}</MainCategoryHashtag>
+                      <MainCategoryHashtag key={tag}>
+                        #{tag}
+                      </MainCategoryHashtag>
                     ))
                 )}
               </MainCategoryHashtagWrapper>
@@ -186,7 +181,7 @@ const Main = () => {
               ]}
             />
             <HomeBox>
-              <HomeLogo src="src\images\logo.svg" />
+              <HomeLogo src="src\images\logo2.svg" />
               <HomeLogoText>
                 같은 <span>MTBI</span>끼리
                 <br />
