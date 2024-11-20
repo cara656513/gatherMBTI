@@ -128,7 +128,6 @@ const SignUp = () => {
       <Header
         menus={[
           { route: "/login", menu: "로그인" },
-          { route: "/signup", menu: "회원가입" },
         ]}
       />
       <ProfileImageUpload profileImg={profileImg} setProfileImg={setProfileImg}>
