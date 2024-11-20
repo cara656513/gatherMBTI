@@ -36,9 +36,7 @@
 
 - 기능 2 Supabase를 활용한 로그인, 회원 가입
 
-- 기능 3 Context API를 활용한 전역상태 관리
-
-- 기능 RRD(React Router DOM) 
+- 기능 5 마이페이지기능()
 
 
 ## ⏲️ 개발기간
