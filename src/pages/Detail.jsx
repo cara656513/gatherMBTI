@@ -22,44 +22,51 @@ import {
   CommentEditInput,
 } from "../styles/DetailStyles";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Header } from "../components/Header";
 
 const Detail = () => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [comments, setComments] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null); // 로그인한 유저 정보
 
-  const { id } = useParams();
+  const { id } = useParams(); //게시물아이디
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from("posts").select("*");
-      if (error) {
-        console.log("error => ", error);
-      } else {
-        console.log("data => ", data);
-        setPosts(data);
-      }
+      // 게시글 데이터 가져오기
+      const { data: postData, error: postError } = await supabase
+        .from("posts")
+        .select("*");
+      if (postError) console.log("Error fetching posts:", postError);
+      else setPosts(postData);
+
+      // 유저 데이터 가져오기
       const { data: userData, error: userError } = await supabase
         .from("users")
         .select("*");
-      if (error) {
-        console.log(userError);
-        return;
-      }
-      setUsers(userData);
+      if (userError) console.log("Error fetching users:", userError);
+      else setUsers(userData);
+
+      // 댓글 데이터 가져오기
       const { data: commentsData, error: commentsError } = await supabase
         .from("comments")
-        .select("*");
-      if (error) {
-        console.log(commentsError);
-        return;
-      }
-      setComments(commentsData);
+        .select("*")
+        .eq("post_id", id);
+      if (commentsError) console.log("Error fetching comments:", commentsError);
+      else setComments(commentsData);
+
+      // 현재 로그인한 유저 정보 가져오기
+      const { data: currentUserData, error: authError } =
+        await supabase.auth.getUser();
+      if (authError) console.log("Error fetching current user:", authError);
+      else setCurrentUser(currentUserData.user);
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const [newComment, setNewComment] = useState("");
   const [visibleMenuId, setVisibleMenuId] = useState(null); // 현재 열려있는 메뉴 ID
@@ -80,59 +87,216 @@ const Detail = () => {
   const handleAddComment = async () => {
     if (newComment.trim() === "") return;
 
-    const { data: userData, error: usetError } = await supabase.auth.getUser();
-    //로그인한 사용자 정보 가져오기
+    // 현재 로그인한 사용자 정보 가져오기
+    const { data: userData, error: authError } = await supabase.auth.getUser();
+    if (authError || !userData) {
+      Swal.fire({
+        title: "로그인 필요",
+        text: "댓글을 작성하려면 로그인이 필요합니다.",
+        icon: "warning",
+      });
+      return;
+    }
 
-    //로그인 아닐때 뜨는거 해야됨
+    const newCommentData = {
+      user_id: userData.user.id,
+      content: newComment,
+      post_id: id,
+    };
 
+    // Supabase에 댓글 추가
     const { data, error } = await supabase
       .from("comments")
-      .insert({
-        //수파베이스에 댓글을 넣는다
-        user_id: userData.user.id,
-        content: newComment,
-        post_id: id,
-      })
-      .select("*"); //넣은걸 가져온다 94줄 data로
+      .insert(newCommentData)
+      .select("*, users(profile_img)"); // 유저의 프로필 이미지 포함하여 가져오기
 
-    setComments([...comments, data[0]]);
-    setNewComment("");
+    if (error) {
+      Swal.fire({
+        title: "댓글 추가 실패",
+        text: "댓글을 추가하는 데 실패했습니다.",
+        icon: "error",
+      });
+    } else {
+      // 댓글 상태 업데이트
+      setComments([
+        ...comments,
+        {
+          ...data[0],
+          user: {
+            profile_img: users.find((user) => user.id === userData.user.id)
+              ?.profile_img,
+          },
+        },
+      ]);
+      setNewComment(""); // 입력란 초기화
+    }
   };
 
-  const handleDeleteComment = (id) => {
-    setComments(comments.filter((comment) => comment.id !== id));
-    closeModal(); // 모달 닫기
+  const handleDeleteComment = async (commentId) => {
+    // 현재 로그인한 사용자 정보 가져오기
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (userError || !userData) {
+      Swal.fire({
+        title: "삭제 실패",
+        text: "로그인이 필요합니다.",
+      });
+      return;
+    }
+
+    // 삭제하려는 댓글 정보 가져오기
+    const { data: commentData, error: commentError } = await supabase
+      .from("comments")
+      .select("user_id")
+      .eq("id", commentId)
+      .single();
+
+    if (commentError || !commentData) {
+      Swal.fire({
+        title: "삭제 실패",
+        text: "댓글 정보를 가져올 수 없습니다.",
+      });
+      return;
+    }
+
+    // 현재 사용자와 댓글 작성자 비교
+    if (commentData.user_id !== userData.user.id) {
+      Swal.fire({
+        title: "삭제 불가",
+        text: "다른 사용자의 댓글은 삭제할 수 없습니다.",
+      });
+      return;
+    }
+
+    // 댓글 삭제
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", commentId);
+
+    if (error) {
+      console.log("Error deleting comment:", error);
+      Swal.fire({
+        title: "삭제 실패",
+        text: "댓글 삭제에 실패했습니다.",
+      });
+    } else {
+      setComments(comments.filter((comment) => comment.id !== commentId)); // 상태에서 댓글 제거
+      Swal.fire({
+        title: "삭제 완료",
+        text: "댓글이 삭제되었습니다.",
+      });
+      closeModal(); // 모달 닫기
+    }
   };
 
-  const handleEditComment = async (id, content) => {
-    setEditCommentId(id); // 수정 중인 댓글 ID
-    setEditContent(content); // 수정 중인 댓글 내용
+  const handleEditComment = async (commentId, content) => {
+    // 현재 로그인한 사용자 정보 가져오기
+    const { data: userData, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !userData) {
+      Swal.fire({
+        title: "수정 불가",
+        text: "로그인이 필요합니다.",
+      });
+      return;
+    }
+
+    // 댓글의 작성자 정보 가져오기
+    const { data: commentData, error: commentError } = await supabase
+      .from("comments")
+      .select("user_id")
+      .eq("id", commentId)
+      .single();
+
+    if (commentError || !commentData) {
+      Swal.fire({
+        title: "수정 불가",
+        text: "댓글 정보를 가져올 수 없습니다.",
+      });
+      return;
+    }
+
+    // 현재 로그인한 사용자와 댓글 작성자 비교
+    if (commentData.user_id !== userData.user.id) {
+      Swal.fire({
+        title: "수정 불가",
+        text: "다른 사용자의 댓글은 수정할 수 없습니다.",
+      });
+      return;
+    }
+
+    // 댓글 수정 가능 상태로 설정
+    setEditCommentId(commentId);
+    setEditContent(content);
+    closeModal(); // 메뉴 닫기
+  };
+
+  const saveEditComment = async () => {
+    if (!editContent.trim()) {
+      //인풋내용이 빈칸일때 입력하라고 알림
+      alert("내용을 입력해주세요.");
+      return;
+    }
 
     const { error } = await supabase
       .from("comments")
-      .update({ content }) // 수정할 데이터
-      .eq("id", id); // 특정할 데이터
+      .update({ content: editContent }) // 수정할 내용
+      .eq("id", editCommentId); // 수정할 댓글의 ID
+
     if (error) {
-      console.log("error =>".error);
+      console.log("Error updating comment:", error);
+      Swal.fire({
+        title: "수정 실패",
+        text: "댓글수정이 실패되었습니다.",
+      });
+    } else {
+      setComments(
+        comments.map((comment) =>
+          comment.id === editCommentId
+            ? { ...comment, content: editContent }
+            : comment
+        )
+      );
+      setEditCommentId(null);
+      setEditContent("");
+      Swal.fire({
+        title: "수정 완료",
+        text: "댓글이 수정되었습니다.",
+      });
     }
-
-    closeModal(); // 모달 닫기
   };
 
-  const saveEditComment = () => {
-    setComments(
-      comments.map((comment) =>
-        comment.id === editCommentId
-          ? { ...comment, content: editContent }
-          : comment
-      )
-    );
-    setEditCommentId(null);
-    setEditContent("");
+  const handleDeletePost = async (postId) => {
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      text: "이 작업은 되돌릴 수 없습니다.",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { error } = await supabase
+          .from("posts")
+          .delete()
+          .eq("id", postId); // 게시글 ID로 삭제
+
+        if (error) {
+          console.log("Error deleting post:", error);
+          Swal.fire("삭제 실패", "게시글 삭제에 실패했습니다.");
+        } else {
+          Swal.fire("삭제 완료", "게시글이 삭제되었습니다.");
+          navigate("/"); // 삭제 후 메인 페이지로 이동
+        }
+      }
+    });
   };
-  console.log(posts);
+
   return (
     <>
+      <Header />
       {posts
         .filter((post) => {
           return post.id === id;
@@ -146,16 +310,14 @@ const Detail = () => {
               <Right>
                 <UserInfo>
                   <UserImg>
-                    {users.find((user) => user.id === post.user_id)
-                      ?.profile_img && (
-                      <img
-                        src={
-                          users.find((user) => user.id === post.user_id)
-                            .profile_img
-                        }
-                        alt="User Profile"
-                      />
-                    )}
+                    <img
+                      src={
+                        users.find((user) => user.id === post.user_id)
+                          ?.profile_img ||
+                        "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
+                      }
+                      alt="User Profile"
+                    />
                   </UserImg>
                   <Nickname>
                     {users
@@ -163,27 +325,30 @@ const Detail = () => {
                       .map((user) => user.nickname)}
                   </Nickname>
 
-                  <MenuDots onClick={() => toggleMenu(1)}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="512"
-                      height="512"
-                    >
-                      <circle cx="21.517" cy="12.066" r="2.5" />
-                      <circle cx="12" cy="12" r="2.5" />
-                      <circle cx="2.5" cy="12" r="2.5" />
-                    </svg>
-                  </MenuDots>
+                  {/* MenuDots: 게시글 작성자인 경우에만 표시 */}
+                  {currentUser && currentUser.id === post.user_id && (
+                    <MenuDots onClick={() => toggleMenu(1)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="512"
+                        height="512"
+                      >
+                        <circle cx="21.517" cy="12.066" r="2.5" />
+                        <circle cx="12" cy="12" r="2.5" />
+                        <circle cx="2.5" cy="12" r="2.5" />
+                      </svg>
+                    </MenuDots>
+                  )}
                   {visibleMenuId === 1 && (
-                    <Modal>
+                    <Modal onClose={closeModal}>
                       <button
                         id={id}
                         onClick={(e) => navigate(`/updatepost/${e.target.id}`)}
                       >
                         수정
                       </button>
-                      <button onClick={() => alert("삭제 클릭!")}>삭제</button>
+                      <button onClick={() => handleDeletePost(id)}>삭제</button>
                     </Modal>
                   )}
                 </UserInfo>
@@ -194,16 +359,14 @@ const Detail = () => {
                   {comments.map((comment) => (
                     <UpComment key={comment.id}>
                       <UserImg>
-                        {users.find((user) => user.id === post.user_id)
-                          ?.profile_img && (
-                          <img
-                            src={
-                              users.find((user) => user.id === post.user_id)
-                                .profile_img
-                            }
-                            alt="User Profile"
-                          />
-                        )}
+                        <img
+                          src={
+                            users.find((user) => user.id === comment.user_id)
+                              ?.profile_img ||
+                            "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
+                          }
+                          alt="User Profile"
+                        />
                       </UserImg>
 
                       {editCommentId === comment.id ? (
@@ -221,61 +384,64 @@ const Detail = () => {
                       ) : (
                         <>
                           <Comment>{comment.content}</Comment>
-                          <MenuDots>
-                            <CommentMenuDots
-                              onClick={() => toggleMenu(comment.id)}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="512"
-                                height="512"
-                              >
-                                <circle cx="21.517" cy="12.066" r="2.5" />
-                                <circle cx="12" cy="12" r="2.5" />
-                                <circle cx="2.5" cy="12" r="2.5" />
-                              </svg>
-                            </CommentMenuDots>
-                            {visibleMenuId === comment.id && (
-                              <Modal onClose={closeModal}>
-                                <button
-                                  onClick={() =>
-                                    handleEditComment(
-                                      comment.id,
-                                      comment.content
-                                    )
-                                  }
+
+                          {/* MenuDots: 댓글 작성자인 경우에만 표시 */}
+                          {currentUser &&
+                            currentUser.id === comment.user_id && (
+                              <MenuDots>
+                                <CommentMenuDots
+                                  onClick={() => toggleMenu(comment.id)}
                                 >
-                                  수정
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    handleDeleteComment(comment.id)
-                                  }
-                                >
-                                  삭제
-                                </button>
-                              </Modal>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="512"
+                                    height="512"
+                                  >
+                                    <circle cx="21.517" cy="12.066" r="2.5" />
+                                    <circle cx="12" cy="12" r="2.5" />
+                                    <circle cx="2.5" cy="12" r="2.5" />
+                                  </svg>
+                                </CommentMenuDots>
+                                {visibleMenuId === comment.id && (
+                                  <Modal onClose={closeModal}>
+                                    <button
+                                      onClick={() =>
+                                        handleEditComment(
+                                          comment.id,
+                                          comment.content
+                                        )
+                                      }
+                                    >
+                                      수정
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleDeleteComment(comment.id)
+                                      }
+                                    >
+                                      삭제
+                                    </button>
+                                  </Modal>
+                                )}
+                              </MenuDots>
                             )}
-                          </MenuDots>
                         </>
                       )}
                     </UpComment>
                   ))}
                 </CommentList>
 
-                <CommentUserInfo MarginTop10>
+                <CommentUserInfo>
                   <UserImg>
-                    {users.find((user) => user.id === post.user_id)
-                      ?.profile_img && (
-                      <img
-                        src={
-                          users.find((user) => user.id === post.user_id)
-                            .profile_img
-                        }
-                        alt="User Profile"
-                      />
-                    )}
+                    <img
+                      src={
+                        users.find((user) => user.id === post.user_id)
+                          ?.profile_img ||
+                        "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
+                      }
+                      alt="User Profile"
+                    />
                   </UserImg>
                   <CommentInputWrapper>
                     <CommentInput
