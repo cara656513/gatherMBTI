@@ -68,6 +68,26 @@
 
 
 ## 프로젝트 파일 구조
+gatherMBTI/
+├── public/
+├── src/
+│   ├── api/
+│   ├── assets/
+│   ├── fonts/
+│   ├── images/
+│   ├── icons/
+│   ├── components/
+│   ├── pages/
+│   ├── shared/
+│   ├── styles/
+│   └── utils/
+├── README.md              # 프로젝트 설명 파일
+├── eslint.config.js       # ESLint 설정 파일
+├── index.html             # 애플리케이션 진입 HTML
+├── package.json           # 프로젝트 메타데이터 및 의존성
+├── pull_request_template.md # 풀 리퀘스트 템플릿
+├── vite.config.js         # Vite 설정 파일
+└── yarn.lock              # Yarn 패키지 버전 잠금 파일
 
 
 
