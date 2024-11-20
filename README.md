@@ -68,6 +68,7 @@
 
 
 ## 프로젝트 파일 구조
+```
 gatherMBTI/
 ├── public/
 ├── src/
@@ -88,7 +89,7 @@ gatherMBTI/
 ├── pull_request_template.md # 풀 리퀘스트 템플릿
 ├── vite.config.js         # Vite 설정 파일
 └── yarn.lock              # Yarn 패키지 버전 잠금 파일
-
+```
 
 
 
