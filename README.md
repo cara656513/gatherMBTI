@@ -66,12 +66,13 @@
 
 ![스크린샷 2024-11-15 오후 8 23 07](https://github.com/user-attachments/assets/61c4e5cf-9cad-4fdd-9c59-331f5174d542)
 
-
-## API 명세서
+## ux/ui
+![image (1)](https://github.com/user-attachments/assets/363a7560-6522-484f-9ef2-816ca41bddb4)
 
 
 ## ERD
 
+![image (1)](https://github.com/user-attachments/assets/82a3f2fc-7dd2-47fe-803c-26629506237d)
 
 ## 프로젝트 파일 구조
 ```
