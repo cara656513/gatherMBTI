@@ -22,7 +22,7 @@ import {
   CommentEditInput,
 } from "../styles/DetailStyles";
 import { useNavigate, useParams } from "react-router-dom";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 import { Header } from "../components/Header";
 import menuDots from "/images/menu-dots.svg";
 import arrowUp from "/images/arrow-up.svg";
