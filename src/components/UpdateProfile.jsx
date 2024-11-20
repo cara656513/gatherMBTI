@@ -4,7 +4,6 @@ import { BasicImage, BasicStyle, Container, ImageInfor, InputStyle, IntroduceSty
 import supabase from "../supabase";
 import { Header } from "./Header";
 
-
 const mbtiOptions = [
   "ISTJ",
   "ISFJ",
@@ -83,103 +82,105 @@ const UpdateProfile = () => {
     alert("프로필이 수정되었습니다!");
     navigate(`/mypage`);
   }
-}
 
-    const handleImageChange = (e) => {
+
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-      if (file) {
+    if (file) {
       // 이미지 읽는 자바스크립트 기능
       const reader = new FileReader();
       // 이미지 읽기 기능 성공 시 실행되는 코드
       reader.onload = (e) => {
-	      // 이미지 읽기 성공 시 url을 imagePreview에 넣기
-	      // 여기서 e.target 은 reader를 말함. 
-	      // reader 내부 result에 임시 이미지 url 있음
+        // 이미지 읽기 성공 시 url을 imagePreview에 넣기
+        // 여기서 e.target 은 reader를 말함. 
+        // reader 내부 result에 임시 이미지 url 있음
         setProfileUrl(e.target.result);
       };
       // 파일 읽기
-        reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
         
       setEditImage(file);
+    };
+  }
+console.log("ddd")
+    return (
+      <>
+        <Header
+          menus={[
+            { route: "/newpost", menu: "글쓰기" },
+            { route: "/mypage", menu: "마이페이지" },
+            { menu: "로그아웃", type: "button" },
+          ]}
+        />
+        <Container>
+          {datas
+            .filter((data) => data.id === userid)
+            .map((data) => {
+              return (
+                <ImageInfor key={data.id}>
+                  <BasicImage src={profileUrl} alt="Profile_Image" />
+                  <p>{data.name}</p>
+                  <br />
+                  <div>
+                    <UpdateImage>
+                      프로필 사진 변경
+                      <input
+                        type="file"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                      />
+                    </UpdateImage>
+                  </div>
+                  <BasicStyle>
+                    <LabelStyle>
+                      이름
+                      <InputStyle
+                        type="text"
+                        value={editName || data.name}
+                        onChange={(e) => setEditName(e.target.value)}
+                      />
+                    </LabelStyle>
+                    <LabelStyle>
+                      닉네임
+                      <InputStyle
+                        type="text"
+                        value={editNickName || data.nickname}
+                        onChange={(e) => setEditNickName(e.target.value)}
+                      />
+                    </LabelStyle>
+                    <LabelStyle>
+                      mbti
+                      <SelectStyle
+                        value={editMbti || data.mbti}
+                        onChange={(e) => setEditMbti(e.target.value)}
+                      >
+                        <option value="">MBTI 선택</option>
+                        {mbtiOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </SelectStyle>
+                    </LabelStyle>
+                    <label>
+                      자기소개
+                      <IntroduceStyle
+                        type="text"
+                        value={editText || data.profile_text}
+                        onChange={(e) => setEditText(e.target.value)}
+                      />
+                    </label>
+                  </BasicStyle>
+                  <UpdateButton type="button" onClick={handleUpdateProfile}>
+                    수정하기
+                  </UpdateButton>
+                </ImageInfor>
+              );
+            })}
+        </Container>
+      </>
+    );
   };
 
-  return (
-    <>
-      <Header
-        menus={[
-          { route: "/newpost", menu: "글쓰기" },
-          { route: "/mypage", menu: "마이페이지" },
-          { menu: "로그아웃", type: "button" },
-        ]}
-      />
-    <Container>
-      {datas
-        .filter((data) => data.id === userid)
-        .map((data) => {
-          return (
-            <ImageInfor key={data.id}>
-              <BasicImage src={profileUrl} alt="Profile_Image"/>
-              <p>{data.name}</p>
-              <br/>
-              <div>
-                <UpdateImage>
-                프로필 사진 변경
-                  <input
-                    type="file"
-                    style={{ display: "none" }}
-                    onChange={handleImageChange}
-                  />
-                </UpdateImage>
-              </div>
-              <BasicStyle>
-                <LabelStyle>
-                  이름
-                  <InputStyle
-                    type="text"
-                    value={editName || data.name}
-                    onChange={(e) => setEditName(e.target.value)}
-                  />
-                </LabelStyle>
-                <LabelStyle>
-                  닉네임
-                  <InputStyle
-                    type="text"
-                    value={editNickName || data.nickname}
-                    onChange={(e) => setEditNickName(e.target.value)}
-                  />
-                </LabelStyle>
-                <LabelStyle>
-                  mbti
-                  <SelectStyle
-                    value={editMbti || data.mbti}
-                    onChange={(e) => setEditMbti(e.target.value)}
-                  >
-                    <option value="">MBTI 선택</option>
-                    {mbtiOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </SelectStyle>
-                  </LabelStyle>
-                <label>
-                  자기소개
-                  <IntroduceStyle
-                    type="text"
-                    value={editText || data.profile_text}
-                    onChange={(e) => setEditText(e.target.value)}
-                  />
-                </label>
-              </BasicStyle>
-              <UpdateButton type="button" onClick={handleUpdateProfile}>
-                수정하기
-              </UpdateButton>
-            </ImageInfor>
-          );
-        })}
-    </Container>
-    </>
-  );
-};
 
 export default UpdateProfile;
