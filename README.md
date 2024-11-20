@@ -44,8 +44,8 @@
     - 패스워드
 ### 3. Context API를 활용한 전역상태 관리 
 
--  
-- 
+-  createContext(), ContextProvider, useContext 를 활용한 전역데이터 관리
+
 
 ### 4. RRD(React Router DOM) **`
 
