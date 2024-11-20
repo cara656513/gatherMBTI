@@ -67,13 +67,13 @@ export const Comment = styled.div`
 export const MenuDots = styled.div`
   width: 16px;
   height: 16px;
-  margin-left: auto;
   margin-right: 27px;
+  margin-left: auto; /* 오른쪽으로 붙이기 */
+  cursor: pointer;
 
-  svg {
+  img {
     width: 100%;
     height: 100%;
-    fill: #000;
   }
 
   button {
@@ -159,7 +159,7 @@ export const CommentButton = styled.button`
     background-color: #ff9b42;
   }
 
-  svg {
+  img {
     width: 16px;
     height: 16px;
     fill: #000;
@@ -196,24 +196,21 @@ export const CommentUserInfo = styled.div`
   margin-top: 10px;
 `;
 
-export const MarginTop10 = styled.div`
-  margin-top: 10px;
-`;
-
 export const UpComment = styled.div`
   display: flex;
-  align-items: center; /* 수직 가운데 정렬 */
-  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   gap: 17px;
 `;
 export const CommentList = styled.div`
   display: flex;
-  flex-direction: column; /* 댓글을 위에서 아래로 쌓기 */
-  gap: 10px; /* 댓글 간 간격 */
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
-  margin-top: auto; /* 위 요소와의 공간 자동 분배 */
-  overflow: auto; /* 댓글이 많아지면 스크롤 가능 */
-  max-height: 300px; /* 필요한 경우 최대 높이 설정 */
+  margin-top: auto;
+  overflow: auto;
+  max-height: 300px;
 `;
 
 export const ModalMenu = styled.div`
