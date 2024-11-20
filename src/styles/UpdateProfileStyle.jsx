@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  margin-top: 130px;
+  margin-top: 100px;
 `;
 
 export const ImageInfor = styled.div`
@@ -14,8 +14,7 @@ export const ImageInfor = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  margin-bottom: 20px; 
+  font-size: 20px; 
 `
 
 export const BasicImage = styled.img`
@@ -32,7 +31,7 @@ export const UpdateImage = styled.label`
   border-radius: 8px;
   width: 100px;
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 8px;
   text-align: center;
   cursor: pointer;
 
@@ -60,7 +59,7 @@ export const LabelStyle = styled.label`
 
 export const InputStyle = styled.input`
   border-radius: 8px;
-  width: 100px;
+  width: 150px;
   padding: 7px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
@@ -76,7 +75,7 @@ export const SelectStyle = styled.select`
   padding: 7px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
-  width: 100px;
+  width: 170px;
 
   &:focus {
     border-color: orange;

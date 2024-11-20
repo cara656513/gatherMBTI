@@ -33,6 +33,7 @@ const UpdateProfile = () => {
   const [editText, setEditText] = useState("");
   const [datas, setDatas] = useState([]);
   const [userid, setUserid] = useState("");
+  const [isImageChanged, setIsImageChanged] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,9 +79,19 @@ const UpdateProfile = () => {
       })
       .eq("id", userid);
 
-    alert("개인정보가 수정되었습니다!");
+    alert("프로필이 수정되었습니다!");
     navigate(`/mypage`);
   }
+
+    const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEditImage(file);
+      setIsImageChanged(true);
+    } else {
+      setIsImageChanged(false);
+    }
+  };
 
   return (
     <>
@@ -97,15 +108,16 @@ const UpdateProfile = () => {
         .map((data) => {
           return (
             <ImageInfor key={data.id}>
-              <p>{data.name}</p>
               <BasicImage src={data.profile_img} alt="Profile_Image"/>
+              {isImageChanged ? <p>{data.name}님 프로필 사진이 변경되었습니다!</p> : <p>{data.name}</p>}
+              <br/>
               <div>
                 <UpdateImage>
                 프로필 사진 변경
                   <input
                     type="file"
                     style={{ display: "none" }}
-                    onChange={(e) => setEditImage(e.target.files[0])}
+                    onChange={handleImageChange}
                   />
                 </UpdateImage>
               </div>
@@ -139,6 +151,7 @@ const UpdateProfile = () => {
                       </option>
                     ))}
                   </SelectStyle>
+                  </LabelStyle>
                 <label>
                   자기소개
                   <IntroduceStyle
@@ -147,7 +160,6 @@ const UpdateProfile = () => {
                     onChange={(e) => setEditText(e.target.value)}
                   />
                 </label>
-                </LabelStyle>
               </BasicStyle>
               <UpdateButton type="button" onClick={handleUpdateProfile}>
                 수정하기

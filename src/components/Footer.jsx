@@ -4,7 +4,6 @@ const FooterWrapper = styled.div`
   position: relative;
   border-top: 1px solid #d8d8d8;
   height: 70px;
-  width: 100%;
 
   display: flex;
   justify-content: space-around;
