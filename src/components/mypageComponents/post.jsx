@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../../supabase";
-import { ImgWrapper } from "../../styles/MyPageStyles";
+import { ButtonWrapper, ImgWrapper } from "../../styles/MyPageStyles";
 import { Link, useNavigate } from "react-router-dom";
 import { Postbox, PostboxImage, PostboxContent } from "/src/styles/MainStyles";
 
@@ -60,16 +60,24 @@ export const PostFetchData = () => {
         .map((data) => {
           return (
             <>
-              <Link key={data.id} to="/detail">
+              <Link key={data.id} to={`/detail/${data.id}`}>
                 <Postbox>
-                  <PostboxImage src={data.picture} alt="Post image" />
-                  <PostboxContent>{data.content}</PostboxContent>
-                  <button id={data.id} onClick={handleUpdatePost}>
-                    수정
-                  </button>
-                  <button id={data.id} onClick={handleDeletePost}>
-                    삭제
-                  </button>
+                  {data.picture !== null ? (
+                    <>
+                      <PostboxImage src={data.picture} alt="Post image" />
+                      <PostboxContent>{data.content}</PostboxContent>
+                    </>
+                  ) : (
+                    <PostboxContent>{data.content}</PostboxContent>
+                  )}
+                  <ButtonWrapper>
+                    <button id={data.id} onClick={handleUpdatePost}>
+                      수정
+                    </button>
+                    <button id={data.id} onClick={handleDeletePost}>
+                      삭제
+                    </button>
+                  </ButtonWrapper>
                 </Postbox>
               </Link>
             </>

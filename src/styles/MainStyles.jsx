@@ -14,7 +14,7 @@ const MainCategory = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 401px;
+  width: 500px;
   height: 174px;
   margin: 150px 760px 91px 759px;
 `;
@@ -116,6 +116,7 @@ const PostboxImage = styled.img`
   height: 222.22px;
   border-radius: 20px;
   margin: 13.19px 13.89px 12px 13.89px;
+  cursor: pointer;
 `;
 
 const PostboxContent = styled.button`
@@ -147,6 +148,7 @@ const UserboxImage = styled.img`
   width: 27.78px;
   height: 27.78px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserboxId = styled.p`
@@ -154,25 +156,6 @@ const UserboxId = styled.p`
   height: 24px;
   margin: 5.19px 26.64px 0px 7.56px;
   cursor: pointer;
-`;
-
-const LikeButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fe8125;
-  width: 27.78px;
-  height: 27.78px;
-  border-radius: 50%;
-  border: transparent;
-`;
-
-const LikeButtonImage = styled.img`
-  width: 15.28px;
-  height: 13.37px;
-  width: 15.28px;
-  height: 13.37px;
-  filter: brightness(0) invert(1);
 `;
 
 export {
@@ -188,8 +171,6 @@ export {
   Userbox,
   UserboxImage,
   UserboxId,
-  LikeButton,
-  LikeButtonImage,
   HomeBox,
   HomeLogo,
   HomeLogoText,
@@ -205,11 +186,13 @@ const HomeBox = styled.div`
   flex-direction: column;
   height: 644px;
   width: 100%;
+  margin-top: 100.8px;
 `;
 
 const HomeLogo = styled.img`
   width: 62.12px;
   height: 126.87px;
+  margin-bottom: 12.13px;
 `;
 
 const HomeLogoText = styled.p`

@@ -10,7 +10,7 @@ const MyPage = () => {
       <Header
         menus={[
           { route: "/newpost", menu: "글쓰기" },
-          { route: "/mypage", menu: "마이 페이지" },
+          { menu: "로그아웃", type: "button" },
         ]}
       />
       <Wrapper>

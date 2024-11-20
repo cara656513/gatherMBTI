@@ -31,3 +31,16 @@ export const UserHiWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+
+  button {
+    background-color: orange;
+    border: 1px solid black;
+    margin: 3px;
+    padding: 5px;
+    width: 50px;
+    border-radius: 30px;
+  }
+`;
