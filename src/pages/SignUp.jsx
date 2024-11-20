@@ -3,7 +3,6 @@ import ProfileImageUpload from "../components/signupComponents/ProfileImageUploa
 import MBTISelect from "../components/signupComponents/MBTISelect";
 import InputField from "../components/signupComponents/InputField";
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import {
@@ -125,11 +124,7 @@ const SignUp = () => {
 
   return (
     <Container onSubmit={handleSubmit}>
-      <Header
-        menus={[
-          { route: "/login", menu: "로그인" },
-        ]}
-      />
+      <Header menus={[{ route: "/login", menu: "로그인" }]} />
       <ProfileImageUpload profileImg={profileImg} setProfileImg={setProfileImg}>
         회원가입
       </ProfileImageUpload>

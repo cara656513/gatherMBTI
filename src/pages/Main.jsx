@@ -214,7 +214,6 @@ const Main = () => {
           </MainBox>
         </>
       )}
-      <Footer />
     </>
   );
 };
