@@ -67,7 +67,7 @@ export const Header = ({
           style={{
             width: "100px",
           }}
-          src="src/images/logo.svg"
+          src="/src/images/logo.svg"
         />
       </Link>
       <MenuWrapper>
