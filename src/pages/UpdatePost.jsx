@@ -1,5 +1,4 @@
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,6 +56,7 @@ const UpdatePost = () => {
       const updatingObj = {};
       if (input.img) {
         const url = await uploadFile(input);
+
         updatingObj.picture = url;
       }
       updatingObj.content = input.text;
@@ -126,7 +126,6 @@ const UpdatePost = () => {
         </InputWrapper>
         <Button type="submit">수정하기</Button>
       </InputForm>
-      <Footer />
     </div>
   );
 };

@@ -1,9 +1,19 @@
+import { useState } from "react";
+import Footer from "./components/Footer";
+import { UserContext } from "./context/userContext";
 import Router from "./shared/Router";
 
 function App() {
+
+  const [user, setUser] = useState();
+
   return (
-      <Router>
-      </Router>
+    <>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Router />
+        <Footer />
+      </UserContext.Provider>
+    </>
   );
 }
 

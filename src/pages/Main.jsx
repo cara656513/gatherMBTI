@@ -20,11 +20,14 @@ import {
   SignUpButton,
   MainCategoryHashtagWrapper,
 } from "../styles/MainStyles";
-import { MainContext } from "../components/mainComponents/MainContext";
+import { useUserPost } from "../components/mainComponents/useUserPost";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const { filteredPosts, navigate, users, userMbti, currentUser } =
-    useContext(MainContext);
+  const { filteredPosts, users, userMbti, currentUser } =
+    useUserPost()
+  
+    const navigate = useNavigate();
 
   return (
     <>
@@ -61,7 +64,7 @@ const Main = () => {
             </MainCategory>
 
             <PostboxWrapper>
-              {filteredPosts.map((post) => {
+              {filteredPosts?.map((post) => {
                 const user = users.find((user) => user.id === post.user_id);
 
                 return (

@@ -1,16 +1,17 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../supabase";
+import { UserContext } from "../../context/userContext";
 
 
-export const MainContext = createContext();
 
-export const MainProvider = ({ children }) => {
-    const navigate = useNavigate();
+
+export const useUserPost = () => {
+
     const [posts, setPosts] = useState([]);
     const [users, setUsers] = useState([]);
     const [userMbti, setUserMbti] = useState("");
-    const [currentUser, setCurrentUser] = useState(null);
+    const { user: currentUser } = useContext(UserContext);
     const [loading, setLoading] = useState(true); // 로딩 상태
   
     useEffect(() => {
@@ -18,14 +19,8 @@ export const MainProvider = ({ children }) => {
         setLoading(true); // 로딩 시작
         try {
           // 현재 로그인 된 사용자 데이터 가져오기
-          const { data: userData, error: userError } =
-            await supabase.auth.getUser();
-          if (userError) {
-            console.error("사용자 정보 불러오기 실패 : ", userError);
-            return;
-          }
-          console.log("userData : ", userData);
-          setCurrentUser(userData.user);
+
+
   
           // 전체 사용자 데이터 가져오기
           const { data: allUsers, error: usersError } = await supabase
@@ -39,9 +34,9 @@ export const MainProvider = ({ children }) => {
           setUsers(allUsers);
   
           // 현재 로그인된 사용자의 MBTI 정보 설정
-          if (userData.user) {
+          if (currentUser.user) {
             const loggedInUser = allUsers.find(
-              (user) => user.id === userData.user.id
+              (user) => user.id === currentUser.user.id
             );
             if (loggedInUser) {
               setUserMbti(loggedInUser.mbti);
@@ -80,10 +75,7 @@ export const MainProvider = ({ children }) => {
       return null;
     }
 
-    console.log({filteredPosts})
-    return (
-        <MainContext.Provider value={{ filteredPosts, navigate, posts, users, userMbti, currentUser, loading }}>
-            {children}
-        </MainContext.Provider>
-    )
+    console.log(filteredPosts)
+    return { filteredPosts, users, userMbti, currentUser };
+
 }
