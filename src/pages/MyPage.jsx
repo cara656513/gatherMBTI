@@ -1,7 +1,6 @@
 import { Wrapper } from "../styles/MyPageStyles";
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
-import { UserFetchData } from "../components/mypageComponents/UserFetchData";
+import UserFetchData from "../components/mypageComponents/UserFetchData";
 import { PostFetchData } from "../components/mypageComponents/PostFetchData";
 
 const MyPage = () => {
@@ -17,7 +16,6 @@ const MyPage = () => {
         <UserFetchData />
         <PostFetchData />
       </Wrapper>
-      <Footer />
     </>
   );
 };

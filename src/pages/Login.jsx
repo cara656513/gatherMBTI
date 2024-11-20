@@ -1,20 +1,7 @@
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import LoginComponent from "../components/LoginComponent";
 
-// const HeaderWrapper = styled.div`
-//   height: 100px;
-//   display: flex;
-//   justify-content: start;
-//   align-items: center;
-//   border-bottom: 1px solid #d8d8d8;
-//   position: fixed;
-//   top: 0;
-//   width: 100%;
 
-//   background-color: white;
-//   box-sizing: border-box;
-// `;
 
 const Login = () => {
   return (
@@ -28,7 +15,6 @@ const Login = () => {
         ]}
       />
       <LoginComponent />
-      <Footer />
     </>
   );
 };

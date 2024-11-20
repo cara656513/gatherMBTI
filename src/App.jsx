@@ -1,7 +1,19 @@
+import { useState } from "react";
+import Footer from "./components/Footer";
+import { UserContext } from "./context/userContext";
 import Router from "./shared/Router";
 
 function App() {
-  return <Router />;
+  const [user, setUser] = useState();
+
+  return (
+    <>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Router />
+        <Footer />
+      </UserContext.Provider>
+    </>
+  );
 }
 
 export default App;

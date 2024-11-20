@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../../supabase";
-import { ButtonWrapper, ImgWrapper } from "../../styles/MyPageStyles";
+import { ButtonWrapper } from "../../styles/MyPageStyles";
 import { Link, useNavigate } from "react-router-dom";
 import { Postbox, PostboxImage, PostboxContent } from "/src/styles/MainStyles";
 import { PostboxWrapper } from "../../styles/MainStyles";
