@@ -77,3 +77,35 @@ export const SelfIntro = styled.div`
     text-overflow: ellipsis;
   }
 `;
+
+export const SelfImg = styled.div`
+  display: grid;
+  align-items: center;
+  text-align: center;
+  margin: 0 30px 0 0;
+
+  button {
+    background-color: orange;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 30px;
+    font-size: 15px;
+  }
+`;
+
+export const ProfileImgLabel = styled.label`
+  background-color: orange;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 30px;
+  font-size: 15px;
+`;
+
+export const StyledLink = styled.div`
+  margin: 28px 0 0 0;
+  background-color: red;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 30px;
+  font-size: 15px;
+`;

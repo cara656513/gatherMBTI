@@ -1,5 +1,4 @@
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
@@ -139,7 +138,6 @@ const NewPost = () => {
         </InputWrapper>
         <Button type="submit">올리기</Button>
       </InputForm>
-      <Footer />
     </div>
   );
 };

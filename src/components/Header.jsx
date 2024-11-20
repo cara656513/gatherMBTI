@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
+import useUser from "../api/useUser";
 
 const HeaderWrapper = styled.div`
   height: 100px;
@@ -49,6 +50,7 @@ export const Header = ({
   ],
 }) => {
   const navigate = useNavigate();
+  useUser();
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
