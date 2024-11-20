@@ -37,15 +37,15 @@
 
 - **supabase** 에서 제공하는 api를 이용하여 MBTI 게시물 CRUD 기능  
 
-### 2. Supabase를 활용한 로그인, 회원 가입 **`숙련 1-19, 1-20`**
+### 2. Supabase를 활용한 로그인, 회원 가입
 
 - Authentication 에서 제공하는 api를 이용해서 아래 회원 가입, 로그인 기능 구현 
     - 아이디(이메일), 
     - 패스워드
-### 3. Context API를 활용한 전역상태 관리 **
+### 3. Context API를 활용한 전역상태 관리 
 
--  Context API를 
-- `createContext()`, `ContextProvider`, `useContext`
+-  
+- 
 
 ### 4. RRD(React Router DOM) **`
 
