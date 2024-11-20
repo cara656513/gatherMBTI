@@ -59,28 +59,6 @@ export const Header = ({
       navigate("/login");
     }
   };
-<<<<<<< HEAD
-  const menus = [{
-    route: '/newpost',
-    menu: '글쓰기',
-    type: 'link'
-  },
-  {
-    route: '/mypage',
-    menu: '마이 페이지',
-    type: 'link'
-  },
-  {
-    route: '/signup',
-    menu: '회원가입',
-    type: 'link'
-  },
-
-  
-  {
-    onClick: handleLogout,
-=======
->>>>>>> 8e8170c5592063ee13c046126147ec30c9668dbb
 
   return (
     <HeaderWrapper>
