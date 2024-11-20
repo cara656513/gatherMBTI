@@ -24,6 +24,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Header } from "../components/Header";
+import menuDots from "../images/menu-dots.svg";
+import arrowUp from "../images/arrow-up.svg";
 
 const Detail = () => {
   const [posts, setPosts] = useState([]);
@@ -328,16 +330,7 @@ const Detail = () => {
                   {/* MenuDots: 게시글 작성자인 경우에만 표시 */}
                   {currentUser && currentUser.id === post.user_id && (
                     <MenuDots onClick={() => toggleMenu(1)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="512"
-                        height="512"
-                      >
-                        <circle cx="21.517" cy="12.066" r="2.5" />
-                        <circle cx="12" cy="12" r="2.5" />
-                        <circle cx="2.5" cy="12" r="2.5" />
-                      </svg>
+                      <img src={menuDots} />
                     </MenuDots>
                   )}
                   {visibleMenuId === 1 && (
@@ -392,16 +385,7 @@ const Detail = () => {
                                 <CommentMenuDots
                                   onClick={() => toggleMenu(comment.id)}
                                 >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="512"
-                                    height="512"
-                                  >
-                                    <circle cx="21.517" cy="12.066" r="2.5" />
-                                    <circle cx="12" cy="12" r="2.5" />
-                                    <circle cx="2.5" cy="12" r="2.5" />
-                                  </svg>
+                                  <img src={menuDots} />
                                 </CommentMenuDots>
                                 {visibleMenuId === comment.id && (
                                   <Modal onClose={closeModal}>
@@ -436,9 +420,11 @@ const Detail = () => {
                   <UserImg>
                     <img
                       src={
-                        users.find((user) => user.id === post.user_id)
-                          ?.profile_img ||
-                        "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
+                        currentUser
+                          ? users.find((user) => user.id === currentUser.id)
+                              ?.profile_img ||
+                            "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
+                          : "https://dpsocvfllvgybxswytnl.supabase.co/storage/v1/object/public/profile_img/default-profile.jpg"
                       }
                       alt="User Profile"
                     />
@@ -450,14 +436,7 @@ const Detail = () => {
                       placeholder="댓글을 입력하세요..."
                     />
                     <CommentButton onClick={handleAddComment}>
-                      <svg
-                        id="Layer_1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        version="1.1"
-                        viewBox="0 0 512 512"
-                      >
-                        <path d="M256,476.5c-8.8,0-16.8-3.6-22.6-9.4-5.8-5.8-9.4-13.8-9.4-22.6V118.2s-126.4,126.4-126.4,126.4c-12.5,12.5-32.7,12.5-45.3,0-12.5-12.5-12.5-32.7,0-45.3L188.1,63.6c37.4-37.4,98.3-37.4,135.8,0l135.8,135.8c12.5,12.5,12.5,32.7,0,45.3-12.5,12.5-32.7,12.5-45.3,0l-126.4-126.4v326.3c0,17.7-14.3,32-32,32h0Z" />
-                      </svg>
+                      <img src={arrowUp} />
                     </CommentButton>
                   </CommentInputWrapper>
                 </CommentUserInfo>
