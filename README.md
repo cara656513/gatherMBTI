@@ -15,8 +15,7 @@
 12. [Trouble Shooting](#trouble-shooting)
     
 ## 👨‍🏫 프로젝트 소개
-
-
+  MBTI가  같은 사람들끼리의 게시물을 모아서 볼수있는 SNS로 취미, 일상등을 공유해서 
 ## 팀소개
 
 
@@ -25,36 +24,34 @@
 
 ## 💜 주요기능
 
-- 기능 1
+- 기능 1 Supabase를 활용한 게시물  CRUD
 
-- 기능 2
+- 기능 2 Supabase를 활용한 로그인, 회원 가입
 
-- 기능 3
+- 기능 3 Context API를 활용한 전역상태 관리
 
-- 기능 4
+- 기능 RRD(React Router DOM) 
 
 
 ## ⏲️ 개발기간
-- 2024.02.26(월) ~ 2024.04.04(목)
+- 2024.11.18(월) ~ 2024.11.21(목)
 
 ## 📚️ 기술스택
 
-### ✔️ Language
+### ✔️ Supabase 
 
+### ✔️ React 
 
-### ✔️ Version Control
+### ✔️ React-router-dom
 
-### ✔️ IDE
+### ✔️ styleld.component 
 
-### ✔️ Framework
+### ✔️ javascript
 
-### ✔️ Deploy
-
-
-### ✔️  DBMS
+### ✔️  Html 
 
 ## 서비스 구조
-
+ 
 
 
 ## 와이어프레임
