@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import useUser from "../api/useUser";
+import logo from "/src/images/logo.svg";
 
 const HeaderWrapper = styled.div`
   height: 100px;
@@ -69,7 +70,7 @@ export const Header = ({
           style={{
             width: "100px",
           }}
-          src="/src/images/logo.svg"
+          src={logo}
         />
       </Link>
       <MenuWrapper>
