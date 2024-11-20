@@ -57,6 +57,8 @@
 ## 와이어프레임
 
 
+![스크린샷 2024-11-15 오후 8 23 07](https://github.com/user-attachments/assets/61c4e5cf-9cad-4fdd-9c59-331f5174d542)
+
 
 ## API 명세서
 
