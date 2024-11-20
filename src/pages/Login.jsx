@@ -1,5 +1,4 @@
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import LoginComponent from "../components/LoginComponent";
 
 
@@ -16,7 +15,6 @@ const Login = () => {
         ]}
       />
       <LoginComponent />
-      <Footer />
     </>
   );
 };
