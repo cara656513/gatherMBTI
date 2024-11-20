@@ -22,6 +22,7 @@ import {
   SignUpButton,
   MainCategoryHashtagWrapper,
 } from "../styles/MainStyles";
+import Logo from "/images/logo2.svg";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -196,7 +197,7 @@ const Main = () => {
           />
           <MainBox>
             <HomeBox>
-              <HomeLogo src="/images/logo2.svg" />
+              <HomeLogo src={Logo} />
               <HomeLogoText>
                 같은 <span>MBTI</span>끼리
                 <br />

@@ -24,8 +24,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 // import Swal from "sweetalert2";
 import { Header } from "../components/Header";
-import menuDots from "../images/menu-dots.svg";
-import arrowUp from "../images/arrow-up.svg";
+import menuDots from "/images/menu-dots.svg";
+import arrowUp from "/images/arrow-up.svg";
 
 const Detail = () => {
   const [posts, setPosts] = useState([]);
