@@ -1,6 +1,6 @@
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate, useParams } from "react-router-dom";
 import { uploadFile } from "../api/storage";
@@ -14,30 +14,47 @@ import {
 
 const UpdatePost = () => {
   const [input, setInput] = useState({ img: null, text: "" });
+  const [previewImg, setPreviewImg] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log(id);
-  const handleInputChange = (e) => {
-    const { id, value, files } = e.target;
-    if (id === "img") {
-      setInput((prev) => ({ ...prev, img: files[0] }));
-    } else {
-      setInput((prev) => ({ ...prev, [id]: value }));
-    }
+  useEffect(() => {
+    const handleBringValue = async (id) => {
+      let { data: post, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("id", id);
+      if (error) {
+        console.log(error);
+      }
+
+      setInput((prev) => ({
+        ...prev,
+        text: post[0].content,
+      }));
+
+      setPreviewImg(post[0].picture);
+    };
+    handleBringValue(id);
+  }, [id]);
+
+  const handleImgInputChange = (e) => {
+    const { files } = e.target;
+    setInput((prev) => ({ ...prev, img: files[0] }));
+    const objectUrl = URL.createObjectURL(files[0]);
+    setPreviewImg(objectUrl);
+  };
+
+  const handleTxtInputChange = (e) => {
+    const { id, value } = e.target;
+    setInput((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
 
-    if (!input.text && !input.img) {
-      alert("수정 사항이 없습니다.");
-      return;
-    }
-
     try {
       const updatingObj = {};
-
       if (input.img) {
         const url = await uploadFile(input);
         updatingObj.picture = url;
@@ -79,12 +96,21 @@ const UpdatePost = () => {
       >
         <InputWrapper>
           <Label>
-            +
+            {previewImg ? (
+              <img
+                style={{
+                  width: "100%",
+                }}
+                src={previewImg}
+              />
+            ) : (
+              "+"
+            )}
             <input
               type="file"
               accept="image/*"
               id="img"
-              onChange={handleInputChange}
+              onChange={handleImgInputChange}
               style={{
                 display: "none",
               }}
@@ -93,8 +119,9 @@ const UpdatePost = () => {
           <Input
             type="text"
             id="text"
-            onChange={handleInputChange}
+            onChange={handleTxtInputChange}
             placeholder="수정할 내용을 입력해주세요."
+            value={input.text}
           />
         </InputWrapper>
         <Button type="submit">수정하기</Button>
