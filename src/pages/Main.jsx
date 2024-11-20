@@ -197,7 +197,7 @@ const Main = () => {
           />
           <MainBox>
             <HomeBox>
-              <HomeLogo src="src\images\logo2.svg" />
+              <HomeLogo src="/images/logo2.svg" />
               <HomeLogoText>
                 같은 <span>MBTI</span>끼리
                 <br />
