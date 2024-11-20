@@ -7,6 +7,7 @@ import Detail from "../pages/Detail";
 import NewPost from "../pages/NewPost";
 import UpdatePost from "../pages/UpdatePost";
 
+
 const Router = () => {
   return (
     <>

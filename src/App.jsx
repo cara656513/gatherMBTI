@@ -4,6 +4,10 @@ import { UserContext } from "./context/userContext";
 import Router from "./shared/Router";
 
 function App() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9346efc27911a41d07a0bf552839dc57ade54b76
   const [user, setUser] = useState();
 
   return (

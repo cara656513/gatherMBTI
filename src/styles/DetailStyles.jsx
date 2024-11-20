@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Content = styled.div`
   width: 1200px;
   height: 600px;
-  display: flex; /* 플렉스 레이아웃 설정 */
+  display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: 205px auto 0;
   box-shadow: 0 0 10px rgba(0, 0, 9.7, 0.1);
   border-radius: 20px;
 `;
@@ -106,6 +106,11 @@ export const UserInfo = styled.div`
 export const ContentText = styled.div`
   font-size: 18px !important;
   margin-top: 28px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal; /* 여러 줄 허용 */
+  max-width: 100%;
+  line-height: 30px;
 `;
 
 export const CommentInputWrapper = styled.div`
@@ -188,6 +193,7 @@ export const CommentUserInfo = styled.div`
   align-items: center; /* 수직 가운데 정렬 */
   width: 100%;
   gap: 17px;
+  margin-top: 10px;
 `;
 
 export const MarginTop10 = styled.div`
