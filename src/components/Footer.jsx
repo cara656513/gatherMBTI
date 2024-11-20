@@ -9,6 +9,7 @@ const FooterWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   font-family: "KBO_Dia_Gothic_light";
+  color: #878787;
 `;
 
 const Footer = () => {

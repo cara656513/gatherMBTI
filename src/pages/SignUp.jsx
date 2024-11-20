@@ -128,7 +128,6 @@ const SignUp = () => {
       <Header
         menus={[
           { route: "/login", menu: "로그인" },
-          { route: "/signup", menu: "회원가입" },
         ]}
       />
       <ProfileImageUpload profileImg={profileImg} setProfileImg={setProfileImg}>
@@ -184,7 +183,7 @@ const SignUp = () => {
         </AccountInfor>
       </SignUpInput>
       <label>
-        소개글
+        자기소개
         <Introduction
           type="text"
           value={profileText}
@@ -193,7 +192,6 @@ const SignUp = () => {
         />
       </label>
       <SignUpButton type="submit">가입하기</SignUpButton>
-      <Footer />
     </Container>
   );
 };
