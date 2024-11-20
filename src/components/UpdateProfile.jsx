@@ -33,7 +33,7 @@ const UpdateProfile = () => {
   const [editText, setEditText] = useState("");
   const [datas, setDatas] = useState([]);
   const [userid, setUserid] = useState("");
-  const [isImageChanged, setIsImageChanged] = useState(false);
+  const [profileUrl, setProfileUrl] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,12 +46,13 @@ const UpdateProfile = () => {
       }
       setUserid(userData.user.id);
 
-      const { data, error } = await supabase.from("users").select("*");
+      const { data, error } = await supabase.from("users").select("*").eq("id", userData.user.id)
       if (error) {
         console.log(error);
         return;
       }
       setDatas(data);
+      setProfileUrl(data[0].profile_img)
     };
 
     fetchData();
@@ -82,15 +83,24 @@ const UpdateProfile = () => {
     alert("프로필이 수정되었습니다!");
     navigate(`/mypage`);
   }
+}
 
     const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+      if (file) {
+      // 이미지 읽는 자바스크립트 기능
+      const reader = new FileReader();
+      // 이미지 읽기 기능 성공 시 실행되는 코드
+      reader.onload = (e) => {
+	      // 이미지 읽기 성공 시 url을 imagePreview에 넣기
+	      // 여기서 e.target 은 reader를 말함. 
+	      // reader 내부 result에 임시 이미지 url 있음
+        setProfileUrl(e.target.result);
+      };
+      // 파일 읽기
+        reader.readAsDataURL(file);
+        
       setEditImage(file);
-      setIsImageChanged(true);
-    } else {
-      setIsImageChanged(false);
-    }
   };
 
   return (
@@ -108,8 +118,8 @@ const UpdateProfile = () => {
         .map((data) => {
           return (
             <ImageInfor key={data.id}>
-              <BasicImage src={data.profile_img} alt="Profile_Image"/>
-              {isImageChanged ? <p>{data.name}님 프로필 사진이 변경되었습니다!</p> : <p>{data.name}</p>}
+              <BasicImage src={profileUrl} alt="Profile_Image"/>
+              <p>{data.name}</p>
               <br/>
               <div>
                 <UpdateImage>
