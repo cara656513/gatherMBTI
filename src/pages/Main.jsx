@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Header } from "../components/Header";
 import MbtiFeatures from "../shared/MbtiFeatures";
 import {
@@ -24,11 +23,14 @@ import { useUserPost } from "../components/mainComponents/useUserPost";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const { filteredPosts, users, userMbti, currentUser } =
-    useUserPost()
-  
-    const navigate = useNavigate();
+  const { posts, users, userMbti, currentUser } = useUserPost();
 
+  const filteredPosts = posts?.filter((post) => {
+    const user = users.find((user) => user.id === post.user_id);
+    return user && user.mbti === userMbti;
+  });
+
+  const navigate = useNavigate();
   return (
     <>
       {currentUser ? (

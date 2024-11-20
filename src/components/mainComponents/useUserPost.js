@@ -3,79 +3,60 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../../supabase";
 import { UserContext } from "../../context/userContext";
 
-
-
-
 export const useUserPost = () => {
+  const { user: currentUser } = useContext(UserContext);
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [userMbti, setUserMbti] = useState("");
+  const [loading, setLoading] = useState(true); // 로딩 상태
 
-    const [posts, setPosts] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [userMbti, setUserMbti] = useState("");
-    const { user: currentUser } = useContext(UserContext);
-    const [loading, setLoading] = useState(true); // 로딩 상태
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        setLoading(true); // 로딩 시작
-        try {
-          // 현재 로그인 된 사용자 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // 로딩 시작
+      try {
+        // 현재 로그인 된 사용자 데이터 가져오기
 
-
-  
-          // 전체 사용자 데이터 가져오기
-          const { data: allUsers, error: usersError } = await supabase
-            .from("users")
-            .select("*");
-          if (usersError) {
-            console.error("전체 사용자 정보 불러오기 실패 : ", usersError);
-            return;
-          }
-          console.log("allUsers : ", allUsers);
-          setUsers(allUsers);
-  
-          // 현재 로그인된 사용자의 MBTI 정보 설정
-          if (currentUser.user) {
-            const loggedInUser = allUsers.find(
-              (user) => user.id === currentUser.user.id
-            );
-            if (loggedInUser) {
-              setUserMbti(loggedInUser.mbti);
-            }
-          }
-  
-          // 게시글 데이터 가져오기
-          const { data: postData, error: postsError } = await supabase
-            .from("posts")
-            .select("*")
-            .order("created_at", { ascending: false });
-          if (postsError) {
-            console.error("Error fetching posts:", postsError);
-            return;
-          }
-          setPosts(postData);
-  
-          // 로딩 종료
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setLoading(false);
+        // 전체 사용자 데이터 가져오기
+        const { data: allUsers, error: usersError } = await supabase
+          .from("users")
+          .select("*");
+        if (usersError) {
+          console.error("전체 사용자 정보 불러오기 실패 : ", usersError);
+          return;
         }
-      };
-  
-      fetchData();
-    }, []);
-  
-    const filteredPosts = posts.filter((post) => {
-      const user = users.find((user) => user.id === post.user_id);
-      return user && user.mbti === userMbti;
-    });
-  
-    // 로딩 중일 때 빈 화면  렌더링
-    if (loading) {
-      return null;
-    }
+        console.log("allUsers : ", allUsers);
+        setUsers(allUsers);
+        // 현재 로그인된 사용자의 MBTI 정보 설정
+        if (currentUser) {
+          const loggedInUser = allUsers.find(
+            (user) => user.id === currentUser.id
+          );
+          if (loggedInUser) {
+            setUserMbti(loggedInUser.mbti);
+          }
+        }
 
-    console.log(filteredPosts)
-    return { filteredPosts, users, userMbti, currentUser };
+        // 게시글 데이터 가져오기
+        const { data: postData, error: postsError } = await supabase
+          .from("posts")
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (postsError) {
+          console.error("Error fetching posts:", postsError);
+          return;
+        }
+        setPosts(postData);
 
-}
+        // 로딩 종료
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return { posts, users, userMbti, currentUser, loading };
+};
