@@ -109,6 +109,7 @@ const Postbox = styled.div`
   box-shadow: 0px 0px 9.7px rgba(0, 0, 0, 0.1);
   width: 250px;
   height: 354.17px;
+  cursor: pointer;
 `;
 
 const PostboxImage = styled.img`
@@ -116,7 +117,6 @@ const PostboxImage = styled.img`
   height: 222.22px;
   border-radius: 20px;
   margin: 13.19px 13.89px 12px 13.89px;
-  cursor: pointer;
 `;
 
 const PostboxContent = styled.button`
@@ -136,7 +136,7 @@ const PostboxContent = styled.button`
 const Userbox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   flex-direction: row;
   width: 218.75px;
   height: 29.19px;
@@ -144,7 +144,6 @@ const Userbox = styled.div`
 `;
 
 const UserboxImage = styled.img`
-  background-color: orange;
   width: 27.78px;
   height: 27.78px;
   border-radius: 50%;
@@ -152,7 +151,7 @@ const UserboxImage = styled.img`
 `;
 
 const UserboxId = styled.p`
-  width: 129px;
+  width: auto;
   height: 24px;
   margin: 5.19px 26.64px 0px 7.56px;
   cursor: pointer;
