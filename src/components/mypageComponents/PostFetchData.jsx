@@ -3,6 +3,7 @@ import supabase from "../../supabase";
 import { ButtonWrapper, ImgWrapper } from "../../styles/MyPageStyles";
 import { Link, useNavigate } from "react-router-dom";
 import { Postbox, PostboxImage, PostboxContent } from "/src/styles/MainStyles";
+import { PostboxWrapper } from "../../styles/MainStyles";
 
 export const PostFetchData = () => {
   const [datas, setDatas] = useState([]);
@@ -54,7 +55,7 @@ export const PostFetchData = () => {
   };
 
   return (
-    <ImgWrapper>
+    <PostboxWrapper>
       {datas
         .filter((data) => data.user_id === userid)
         .map((data) => {
@@ -83,6 +84,6 @@ export const PostFetchData = () => {
             </>
           );
         })}
-    </ImgWrapper>
+    </PostboxWrapper>
   );
 };

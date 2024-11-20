@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Content = styled.div`
   width: 1200px;
-  display: flex;
+  height: 600px;
+  display: flex; /* 플렉스 레이아웃 설정 */
   justify-content: space-between;
   margin: 0 auto;
   box-shadow: 0 0 10px rgba(0, 0, 9.7, 0.1);
@@ -11,71 +12,37 @@ export const Content = styled.div`
 
 export const Left = styled.div`
   width: 600px;
+  height: 600px;
   border-radius: 20px;
   overflow: hidden;
-  position: relative;
 
   img {
     width: 100%;
-    height: auto;
-    display: block;
-  }
-`;
-
-export const HeartButton = styled.button`
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  background-color: #fe8125;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-
-  svg {
-    width: 26px;
-    height: 22px;
-    fill: white;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지하며 전체 영역 채움 */
   }
 `;
 
 export const Right = styled.div`
   width: 526px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  height: 526px;
   padding: 37px;
+  display: flex;
+  flex-direction: column; /* 요소를 세로로 배치 */
+  justify-content: space-between; /* 위와 아래 요소 사이에 공간 분배 */
 `;
 
 export const UserImg = styled.div`
   width: 52px;
   height: 52px;
   overflow: hidden;
-  position: relative;
   border-radius: 50%;
-  flex-shrink: 0;
+  flex-shrink: 0; /* 부모 요소 내 축소 방지 */
 
   img {
     width: 100%;
-  }
-`;
-
-export const UserEditImg = styled.div`
-  width: 52px;
-  height: 52px;
-  overflow: hidden;
-  position: relative;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  img {
-    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지하며 전체 영역 채움 */
   }
 `;
 
@@ -137,9 +104,8 @@ export const UserInfo = styled.div`
 `;
 
 export const ContentText = styled.div`
-  font-size: 18px;
-  margin-top: 10px;
-  font: unset;
+  font-size: 18px !important;
+  margin-top: 28px;
 `;
 
 export const CommentInputWrapper = styled.div`
@@ -221,8 +187,11 @@ export const CommentUserInfo = styled.div`
   display: flex;
   align-items: center; /* 수직 가운데 정렬 */
   width: 100%;
-  top: 0px;
   gap: 17px;
+`;
+
+export const MarginTop10 = styled.div`
+  margin-top: 10px;
 `;
 
 export const UpComment = styled.div`

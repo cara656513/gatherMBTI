@@ -15,15 +15,23 @@ import {
 const NewPost = () => {
   const [userid, setUserid] = useState();
   const [input, setInput] = useState({ img: null, text: "" });
+  const [previewImg, setPreviewImg] = useState("");
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { id, value, files } = e.target;
-    if (id === "img") {
-      setInput((prev) => ({ ...prev, img: files[0] }));
-    } else {
-      setInput((prev) => ({ ...prev, [id]: value }));
-    }
+  const handleImgInputChange = (e) => {
+    const { files } = e.target;
+    setInput((prev) => ({ ...prev, img: files[0] }));
+
+    // encodeFileToBase64(files[0]);
+
+    const objectUrl = URL.createObjectURL(files[0]);
+    setPreviewImg(objectUrl);
+  };
+
+  const handleTxtInputChange = (e) => {
+    const { id, value } = e.target;
+
+    setInput((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmitPost = async (e) => {
@@ -77,6 +85,14 @@ const NewPost = () => {
     fetchData();
   }, []);
 
+  // const encodeFileToBase64 = (fileBlob) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(fileBlob);
+  //   reader.onload = () => {
+  //     setPreviewImg(reader.result);
+  //   };
+  // };
+
   return (
     <div>
       <Header
@@ -94,12 +110,21 @@ const NewPost = () => {
       >
         <InputWrapper>
           <Label>
-            +
+            {previewImg ? (
+              <img
+                style={{
+                  width: "100%",
+                }}
+                src={previewImg}
+              />
+            ) : (
+              "+"
+            )}
             <input
               type="file"
               accept="image/*"
               id="img"
-              onChange={handleInputChange}
+              onChange={handleImgInputChange}
               style={{
                 display: "none",
               }}
@@ -108,7 +133,7 @@ const NewPost = () => {
           <Input
             type="text"
             id="text"
-            onChange={handleInputChange}
+            onChange={handleTxtInputChange}
             placeholder="오늘은 무슨 생각 하셨나요?"
           />
         </InputWrapper>

@@ -1,8 +1,8 @@
 import { Wrapper } from "../styles/MyPageStyles";
 import { Header } from "../components/Header";
 import Footer from "../components/Footer";
-import { PostFetchData } from "../components/mypageComponents/post";
-import { UserFetchData } from "../components/mypageComponents/user";
+import { UserFetchData } from "../components/mypageComponents/UserFetchData";
+import { PostFetchData } from "../components/mypageComponents/PostFetchData";
 
 const MyPage = () => {
   return (

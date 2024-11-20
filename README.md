@@ -15,50 +15,50 @@
 12. [Trouble Shooting](#trouble-shooting)
     
 ## 👨‍🏫 프로젝트 소개
-
-
+  MBTI가  같은 사람들끼리의 게시물을 모아서 볼수있는 SNS로 취미, 일상등을 공유하는 뉴스피드  
 ## 팀소개
 
 
 ## 프로젝트 계기
-
+ 나와같은 MBTI 를 가진 사람들은 어떤 생각과 라이프스타일을 가지고 있고 MBTI가 같은 사람들을 모아놨을때  
+어떤일들이 생길까? 라는 호기심에 시작하게되었습니다 
 
 ## 💜 주요기능
 
-- 기능 1
+- 기능 1 Supabase를 활용한 게시물  CRUD
 
-- 기능 2
+- 기능 2 Supabase를 활용한 로그인, 회원 가입
 
-- 기능 3
+- 기능 3 Context API를 활용한 전역상태 관리
 
-- 기능 4
+- 기능 RRD(React Router DOM) 
 
 
 ## ⏲️ 개발기간
-- 2024.02.26(월) ~ 2024.04.04(목)
+- 2024.11.18(월) ~ 2024.11.21(목)
 
 ## 📚️ 기술스택
 
-### ✔️ Language
+### ✔️ Supabase 
 
+### ✔️ React 
 
-### ✔️ Version Control
+### ✔️ React-router-dom
 
-### ✔️ IDE
+### ✔️ styleld.component 
 
-### ✔️ Framework
+### ✔️ javascript
 
-### ✔️ Deploy
-
-
-### ✔️  DBMS
+### ✔️  Html 
 
 ## 서비스 구조
-
+ 
 
 
 ## 와이어프레임
 
+
+![스크린샷 2024-11-15 오후 8 23 07](https://github.com/user-attachments/assets/61c4e5cf-9cad-4fdd-9c59-331f5174d542)
 
 
 ## API 명세서
@@ -68,7 +68,28 @@
 
 
 ## 프로젝트 파일 구조
-
+```
+gatherMBTI/
+├── public/
+├── src/
+│   ├── api/
+│   ├── assets/
+│   ├── fonts/
+│   ├── images/
+│   ├── icons/
+│   ├── components/
+│   ├── pages/
+│   ├── shared/
+│   ├── styles/
+│   └── utils/
+├── README.md              # 프로젝트 설명 파일
+├── eslint.config.js       # ESLint 설정 파일
+├── index.html             # 애플리케이션 진입 HTML
+├── package.json           # 프로젝트 메타데이터 및 의존성
+├── pull_request_template.md # 풀 리퀘스트 템플릿
+├── vite.config.js         # Vite 설정 파일
+└── yarn.lock              # Yarn 패키지 버전 잠금 파일
+```
 
 
 
