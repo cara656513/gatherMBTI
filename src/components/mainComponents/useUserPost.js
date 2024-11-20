@@ -14,8 +14,6 @@ export const useUserPost = () => {
     const fetchData = async () => {
       setLoading(true); // 로딩 시작
       try {
-        // 현재 로그인 된 사용자 데이터 가져오기
-
         // 전체 사용자 데이터 가져오기
         const { data: allUsers, error: usersError } = await supabase
           .from("users")
@@ -24,8 +22,9 @@ export const useUserPost = () => {
           console.error("전체 사용자 정보 불러오기 실패 : ", usersError);
           return;
         }
-        console.log("allUsers : ", allUsers);
+
         setUsers(allUsers);
+        console.log(currentUser);
         // 현재 로그인된 사용자의 MBTI 정보 설정
         if (currentUser) {
           const loggedInUser = allUsers.find(
@@ -56,7 +55,7 @@ export const useUserPost = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentUser]);
 
   return { posts, users, userMbti, currentUser, loading };
 };

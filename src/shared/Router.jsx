@@ -6,9 +6,10 @@ import SignUp from "../pages/SignUp";
 import Detail from "../pages/Detail";
 import NewPost from "../pages/NewPost";
 import UpdatePost from "../pages/UpdatePost";
-
+import useUser from "../api/useUser";
 
 const Router = () => {
+  useUser();
   return (
     <>
       <BrowserRouter>

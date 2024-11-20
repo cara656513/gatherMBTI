@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../context/userContext";
 
 const Container = styled.div`
   display: flex;
@@ -64,7 +65,8 @@ const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [user, setuser] = useState("");
+  const { setUser } = useContext(UserContext);
+
   const [errorMessage, setErrorMessage] = useState("");
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -76,17 +78,20 @@ const LoginComponent = () => {
 
   const signInUser = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      console.error("로그인 실패:", error.message);
-      console.log(error);
+    const { data: userData, error: userError } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+    if (userError) {
+      console.log(userError);
       setErrorMessage("로그인을 다시 시도해주세요");
     } else {
-      console.log("로그인 성공:", data);
-      setuser(data.user);
+      let { data } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", userData.user.id);
+      setUser(data[0]);
       navigate("/");
     }
   };
