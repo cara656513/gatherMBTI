@@ -67,7 +67,8 @@
 ![스크린샷 2024-11-15 오후 8 23 07](https://github.com/user-attachments/assets/61c4e5cf-9cad-4fdd-9c59-331f5174d542)
 
 ## ux/ui
-![image (1)](https://github.com/user-attachments/assets/363a7560-6522-484f-9ef2-816ca41bddb4)
+
+![화면 캡처 2024-11-20 175304](https://github.com/user-attachments/assets/86e8f8a5-7635-4abe-b4d5-d7e95a515b48)
 
 
 ## ERD
