@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import supabase from "../supabase";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
-import Footer from "../components/Footer";
 import MbtiFeatures from "../shared/MbtiFeatures";
 import {
   MainBox,
@@ -148,7 +147,7 @@ const Main = () => {
                   >
                     {/* 게시글 */}
                     <PostboxImage
-                      src={post.picture || "src/images/Default_Image.jpg"}
+                      src={post.picture || "/images/Default_Image.jpg"}
                       alt="Post image"
                     />
                     <PostboxContent>{post.content}</PostboxContent>
@@ -156,7 +155,7 @@ const Main = () => {
                     {/* 게시글의 유저 프로필 */}
                     <Userbox key={user ? user.id : post.id}>
                       <UserboxImage
-                        src={user?.profile_img || "src/images/profile_img.jpg"}
+                        src={user?.profile_img || "/images/profile_img.jpg"}
                         alt="Userbox image"
                         onClick={(e) => {
                           e.stopPropagation();
