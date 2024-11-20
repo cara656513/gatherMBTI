@@ -53,6 +53,7 @@
 
 ## 서비스 구조
  
+![서비스-구조-001](https://github.com/user-attachments/assets/92186b7f-bc18-444e-9843-dcdcf99cc847)
 
 
 ## 와이어프레임
