@@ -19,15 +19,15 @@ const UserFetchData = () => {
 
   //자기소개 수정
   const handleUpdateIntro = async () => {
-    const { data, error } = await supabase
-      .from("users")
-      .update({ profile_text: txtInput })
-      .eq("id", user.id)
-      .select();
-    if (error) throw error;
     if (!txtInput) {
       alert("수정 내용을 입력해주세요!");
     } else {
+      const { data, error } = await supabase
+        .from("users")
+        .update({ profile_text: txtInput })
+        .eq("id", user.id)
+        .select();
+      if (error) throw error;
       setUser(data[0]);
       alert("자기소개가 수정되었습니다!");
       setTxtInput("");
