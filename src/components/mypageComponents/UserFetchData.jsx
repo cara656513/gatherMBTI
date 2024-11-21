@@ -25,9 +25,13 @@ const UserFetchData = () => {
       .eq("id", user.id)
       .select();
     if (error) throw error;
-    setUser(data[0]);
-    alert("자기소개가 수정되었습니다!");
-    setTxtInput("");
+    if (!txtInput) {
+      alert("수정 내용을 입력해주세요!");
+    } else {
+      setUser(data[0]);
+      alert("자기소개가 수정되었습니다!");
+      setTxtInput("");
+    }
   };
 
   const handleTxtInputChange = (e) => {
