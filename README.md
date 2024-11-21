@@ -125,7 +125,17 @@ gatherMBTI/
 ## trouble shooting
 ![image](https://github.com/user-attachments/assets/861a1057-65d8-42af-bc88-8d63805c913f)
 ![image](https://github.com/user-attachments/assets/8fc718d7-851f-47fb-be76-1f49386bc801)
-↓↓↓
+
+
+
+
+
+⬇️⬇️⬇️⬇️⬇️
+
+
+
+
+
 ![image](https://github.com/user-attachments/assets/32a2de12-0aeb-43be-9fb2-55e8300a7634)
 ![image](https://github.com/user-attachments/assets/0b27c60a-6656-46eb-879d-70337b796145)
 
