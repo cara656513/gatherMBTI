@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProfileImageUpload from "../components/signupComponents/ProfileImageUpload";
 import MBTISelect from "../components/signupComponents/MBTISelect";
 import InputField from "../components/signupComponents/InputField";
