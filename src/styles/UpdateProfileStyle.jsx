@@ -14,17 +14,17 @@ export const ImageInfor = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 20px; 
-`
+  font-size: 20px;
+`;
 
 export const BasicImage = styled.img`
-    width: 300px;
-    height: 300px;
-    border-radius: 200px;
-    border: 2px dashed orange;
-    margin: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-`
+  width: 300px;
+  height: 300px;
+  border-radius: 200px;
+  border: 2px dashed orange;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 
 export const UpdateImage = styled.label`
   font-size: 14px;
@@ -45,16 +45,16 @@ export const BasicStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top : 40px;
+  margin-top: 40px;
   gap: 10px;
-`
+`;
 
 export const LabelStyle = styled.label`
   display: flex;
   flex-direction: column;
   font-size: 14px;
   gap: 5px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 `;
 
 export const InputStyle = styled.input`
